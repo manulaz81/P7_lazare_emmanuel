@@ -2,6 +2,10 @@ const express = require ('express');
 
 const app = express ();
 
+app.use(express.json());
+
+const usersRoute = require ('./routes/useroutes');
+
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -9,32 +13,10 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
   });
-// require('./config/bdd');
 
-// const { Sequelize } = require('sequelize');
+require('./config/bdd');
 
-//  const sequelize = new Sequelize("foodly", "root", "manulaz81", {
-//      dialect: "mysql",
-//      host: "root@localhost"
-//  });
-
-//  try {
-//     sequelize.authenticate();
-//     console.log('Connecté à la base de données MySQL!');
-//   } catch (error) {
-//     console.error('Impossible de se connecter, erreur suivante :', error);
-//   };
+app.use('/api/auth',usersRoute);
 
 
-
-
-
-
-
-
-
-
-
-
-
-module.export = app ;
+module.exports = app ;
