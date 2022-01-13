@@ -4,7 +4,7 @@ const app = express ();
 
 app.use(express.json());
 
-const usersRoute = require ('./routes/useroutes');
+const usersRoute = require ('./routes/user.routes');
 
 
 app.use((req, res, next) => {

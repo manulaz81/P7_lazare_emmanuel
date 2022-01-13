@@ -1,42 +1,29 @@
 const { Sequelize, DataTypes } = require('sequelize');
+
+// import sequelize from '../config/bdd';
 const sequelize = new Sequelize('sqlite::memory:');
 
-const User = sequelize.define('User', {
+const User = sequelize.define('users', {
   // Model attributes are defined here
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement : true,
-        primaryKey : true   
-    },
+   
 
-  firstName: {
+  pseudo: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  lastName: {
-    type: DataTypes.STRING
-    // allowNull defaults to true
-  },
-  pseudo : {
-    type: DataTypes.STRING
-  },
-  email : {
+   email : {
       type :  DataTypes.STRING
   },
   password : {
     type: DataTypes.STRING
-  },
-  poste : {
-    type :  DataTypes.STRING
   }
 
-
-
-
-
 }, {
-  // Other model options go here
+  tableName : 'utilisateur'
 });
+
+
+module.exports = User;
 
 
 // module.exports = sequelize.model('usersgroupomania',User);
