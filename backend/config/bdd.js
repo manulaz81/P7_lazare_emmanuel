@@ -7,8 +7,10 @@ const sequelize = new Sequelize('groupoma', 'root', 'manulaz81', {
 
 try {
 	sequelize.authenticate();
-	console.log('Connecté à la base de données MySQL!');
-} catch (error) {
+	console.log('Connecté à la base de données MySQL!');  
+   
+} 
+catch (error) {
 	console.error('Impossible de se connecter, erreur suivante :', error);
 }
 
