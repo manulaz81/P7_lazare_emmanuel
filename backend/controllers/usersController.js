@@ -1,64 +1,93 @@
-//model d'exportation
-const userModel = require('../models/modelUser');
-
-//pour générer le token
+// connexion aux models
+const db = require('../models');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+//  crée un main model
+const User = db.users;
+// const Message = db.messages;
 
-//chiffrage du password
-const bcrypt = require ('bcrypt');
-
-const { Sequelize } = require('sequelize');
-const sequelize = new Sequelize('groupoma', 'root', 'manulaz81', {
-	dialect: 'mysql',
-	host: 'localhost',
-});
-
-
-exports.signUp = async (req, res, next) => {
-
-	var email = req.body.email;
-	var username = req.body.nom;
-	var password = req.body.password;
-
-
-	console.log(email);
-		console.log(username);
-	console.log(password);
-	
-	
-	// const { nom,prenom,pseudo, email,role, password } = req.body;
-
-    await userModel.sync({ force: true });
-
-    // //créeation dans la base de donnée
-	try {
-        // await Sequelize.sync();
-		const user = await userModel.create({nom : username ,email : email,password: password })
-		
-		
+exports.signUp = (req, res, next) => {
+	User.create({
+		email: req.body.email,
+		username: req.body.username,
+		password: bcrypt.hashSync(req.body.password, 8),
+		bio: req.body.bio,
+		isAdmin: req.body.isAdmin, // user role = 1 créer un booléen si User ou Admin (Tinyint 0 ou 1)
+	})
 		.then(() => {
-	// 		sequelize.query("insert into  `utilisateur` (`nom`,`prenom`,`pseudo`,`email`,`role`,`password`) values ('req.body.nom','$prenom','$pseudo', '$email','$role', '$password' );").then(([results, metadata]) => {
-	// 			console.log('Base de données créée !');
-	// 		  })
-
-	// 		res.status(201).json ({ msg : "created !"})
+			res.send({ message: "L'utilisateur est bien enregistré !" });
 		})
-		.catch(error => res.status(500).json(error))
-	
-		
-	} catch (err) {
-		res.status(200).send({ err });
-	}
-
-	// console.log(req.body);
-	//    const usergroupo = new userModel ({
-	//        email = req.body.email,
-	//    });
+		.catch((err) => {
+			res.status(500).send({ message: err.message });
+		});
 };
 
+//   } else if (!regexEmail.test(req.body.email)) {
+// 	return res.status(400).json({
+// 	  message: "bad request",
+// 	});
+//   }
+//   bcrypt.hash(req.body.password, 10)
+// 	.then((hash) => {
+// 	  const user = {
+// 		email: req.body.email,
+// 		username: req.body.username,
+// 		password: hash,
+// 		profil_picture: req.body.profil_picture,
+// 		is_admin: req.body.is_admin,
+// 	  };
+// 	  User.save(user)
+// 		.then(() => {
+// 		  res.status(200).json({
+// 			message: "success",
+// 		  });
+// 		})
+// 		.catch((err) => {
+// 		  if ((err.message = "users.email must be unique")) {
+// 			res.status(409).json({ message: "conflict" });
+// 		  } else {
+// 			res.status(500).json({ err  });
+// 		  }
+// 		});
+// 	})
+// 	.catch((err) => res.status(500).json({ err }));
 
+// // const User = db.users;
+// // const Op = db.Sequilize.Op;
 
-// pour s'authentifier
-// exports.signUp= async (req, res, next) => {};
+// const Sequelize = require("sequelize");
 
+// exports.signUp = async (req, res,next) => {
 
+// 	const sequelize = new Sequelize("groupomania", "root", "manulaz81", {
+// 		dialect: "mysql",
+// 		host: "localhost"
+// 	   });
+
+// 	   try {
+// 		  sequelize.authenticate();
+// 		  console.log('Connecté à la base de données MySQL!');
+
+// 		  sequelize.query("insert into `users` (`email`,`username`,`password`,`bio`,`isAdmin`) values ('pierrot@yahoo.com','manu','coolcool','j aime les pommes', 'ok');").then(([results, metadata]) => {
+// 			console.log('results!');
+// 			})
+// 		} catch (error) {
+// 		  console.error('Impossible de se connecter, erreur suivante :', error);
+// 		}
+
+// const email = req.body.email;
+
+// DB.query("CREATE DATABASE `baseeee`;").then(([results, metadata]) => {
+// 		console.log('Base de données créée !');
+
+// });
+// const thing= new userModel({
+// ...req.body
+
+// })
+// res.status(201).json({
+// 	message : 'objet crée !'
+// })
+// console.log(req.body);
+
+//   };
