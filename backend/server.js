@@ -1,15 +1,10 @@
 const http = require ('http');
-const userRoutes = require ('./routes/user.routes');
+// const userRoutes = require ('./routes/user.routes');
+// const messageRoutes = require ('./routes/message.routes');
 require ( 'dotenv').config({path : './config/.env'});
 
 const app = require ('./app');
 const server = http.createServer(app);
-
-
-
-// // routes
-// app.use('/api/user', userRoutes);
-
 
 
 

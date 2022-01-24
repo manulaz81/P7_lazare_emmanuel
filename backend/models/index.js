@@ -31,7 +31,7 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize; 
 
 db.users = require("./modelUser.js")(sequelize, DataTypes);
-db.messages = require("./message.js")(sequelize, DataTypes);
+db.messages = require("./messageUser.js")(sequelize, DataTypes);
 
 db.sequelize.sync({force: false})
 .then(() => {

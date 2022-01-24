@@ -6,11 +6,14 @@ const jwt = require('jsonwebtoken');
 const User = db.users;
 // const Message = db.messages;
 
+// const fs = require ('fs');
+
 exports.signUp = (req, res, next) => {
 	User.create({
 		email: req.body.email,
 		username: req.body.username,
 		password: bcrypt.hashSync(req.body.password, 8),
+
 		bio: req.body.bio,
 		isAdmin: req.body.isAdmin, // user role = 1 créer un booléen si User ou Admin (Tinyint 0 ou 1)
 	})
@@ -22,72 +25,101 @@ exports.signUp = (req, res, next) => {
 		});
 };
 
-//   } else if (!regexEmail.test(req.body.email)) {
-// 	return res.status(400).json({
-// 	  message: "bad request",
-// 	});
-//   }
-//   bcrypt.hash(req.body.password, 10)
-// 	.then((hash) => {
-// 	  const user = {
-// 		email: req.body.email,
-// 		username: req.body.username,
-// 		password: hash,
-// 		profil_picture: req.body.profil_picture,
-// 		is_admin: req.body.is_admin,
-// 	  };
-// 	  User.save(user)
-// 		.then(() => {
-// 		  res.status(200).json({
-// 			message: "success",
-// 		  });
-// 		})
-// 		.catch((err) => {
-// 		  if ((err.message = "users.email must be unique")) {
-// 			res.status(409).json({ message: "conflict" });
-// 		  } else {
-// 			res.status(500).json({ err  });
-// 		  }
-// 		});
-// 	})
-// 	.catch((err) => res.status(500).json({ err }));
+exports.login = (req, res, next) => {
+	User.findOne({
+		where: {
+			email: req.body.email,
+		},
+	})
 
-// // const User = db.users;
-// // const Op = db.Sequilize.Op;
+		.then((user) => {
+			if (!user) {
+				return res.status(404).send({ message: 'Utilisateur non enregistré !' });
+			}
 
-// const Sequelize = require("sequelize");
+			let passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
 
-// exports.signUp = async (req, res,next) => {
+			if (!passwordIsValid) {
+				return res.status(401).send({
+					accessToken: null,
+					message: 'Mot de passe invalide !',
+				});
+			}
 
-// 	const sequelize = new Sequelize("groupomania", "root", "manulaz81", {
-// 		dialect: "mysql",
-// 		host: "localhost"
-// 	   });
+			let token = jwt.sign({ id: user.id }, { expiresIn: 86400 });
 
-// 	   try {
-// 		  sequelize.authenticate();
-// 		  console.log('Connecté à la base de données MySQL!');
+			res.status(200).json({
+				id: user.id,
+				username: user.username,
+				email: user.email,
+				isAdmin: user.isAdmin,
+				accessToken: token,
+				userToken: userToken,
+			});
+		})
+		.catch((err) => {
+			res.status(500).send({ message: err.message });
+		});
+};
 
-// 		  sequelize.query("insert into `users` (`email`,`username`,`password`,`bio`,`isAdmin`) values ('pierrot@yahoo.com','manu','coolcool','j aime les pommes', 'ok');").then(([results, metadata]) => {
-// 			console.log('results!');
-// 			})
-// 		} catch (error) {
-// 		  console.error('Impossible de se connecter, erreur suivante :', error);
-// 		}
+// Supprimer le compte d'utilisateur
 
-// const email = req.body.email;
+exports.deleteUser = (req, res) => {
+	User.destroy({
+		where: { id: req.params.id },
+	})
+		.then(() => {
+			res.send({ message: 'votre compte a bien été supprimé !' });
+		})
+		.catch((err) => {
+			res.status(500).send({ message: err.message });
+		});
+};
 
-// DB.query("CREATE DATABASE `baseeee`;").then(([results, metadata]) => {
-// 		console.log('Base de données créée !');
+//Mettre à jour un utilisateur
 
-// });
-// const thing= new userModel({
-// ...req.body
+exports.modifyUser = (req, res) => {
+	User.destroy({
+		where: { id: req.params.id },
+	})
+		.then(() => {
+			res.send({ message: 'votre compte a bien été modifié!' });
+		})
+		.catch((err) => {
+			res.status(500).send({ message: err.message });
+		});
+};
 
-// })
-// res.status(201).json({
-// 	message : 'objet crée !'
-// })
-// console.log(req.body);
+// récuperer un utilisateur
 
-//   };
+exports.getOneUser = (req, res) => {
+	const id = req.params.id;
+
+	User.findByPk(id)
+		.then((data) => {
+			res.send(data);
+		})
+		.catch((err) => {
+			res.status(500).send({
+				message: 'Error retrieving user with id=' + id,
+			});
+		});
+};
+
+exports.getAllUsers = (req, res, next) => {
+
+	User.findAll()
+	
+	.then(( userAll) =>{
+		res.send(userAll);
+	})
+	.catch((err) => {
+		res.status(500).send({
+			message: 'Erreur dans la requete'
+		});
+	});
+	
+};
+
+//Mettre à jour un utilisateur
+// photo: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
