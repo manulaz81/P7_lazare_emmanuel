@@ -4,12 +4,12 @@ const messControllers =  require ( '../controllers/messageController');
 
 const router =  express.Router();
 
-const auth = require('../middleware/auth');
+// const auth = require('../middleware/auth');
 // const multer = require('../middleware/multer-config');
 
 
 //  post d'un message
-router.post('/',auth, messControllers.postMessage);
+router.post('/', messControllers.postMessage);
 
 // voir tout les messages
 router.get('/', messControllers.allMessage);

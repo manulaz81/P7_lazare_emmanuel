@@ -18,7 +18,7 @@ router.put('/:id', userControllers.modifyUser);
 //route pour supprimer son compte
 router.delete('/:id', userControllers.deleteUser);
 
-// route pour avoir tout les utilisateurs
+// route pour avoir un utilisateur
 router.get('/:id',userControllers.getOneUser);
 
 // route pour avoir tout les utilisateurs

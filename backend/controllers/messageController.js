@@ -10,7 +10,6 @@ exports.postMessage = (req, res, next) => {
 		idMessage: req.body.idMessage,
 		userId: req.body.userId,
 		like: req.body.like,
-		// imageUrl : `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
 		created: req.body.created,
 		message: req.body.message,
 	})

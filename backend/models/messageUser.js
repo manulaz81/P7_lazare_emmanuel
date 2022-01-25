@@ -8,10 +8,8 @@ module.exports = (sequelize, DataTypes) => {
 			message: {
 				type: DataTypes.TEXT,
 			},
-			imageUrl: {
-				type: DataTypes.STRING,
-			},
-			userId: {
+			
+			usersId: {
 				type: DataTypes.TEXT,
 			},
 			like: {
@@ -20,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			timestamps: true,
-			createdAt: 'created',
-			updatedAt: false,
+			createdAt: true,
+			updatedAt: true,
 		},
 	);
 

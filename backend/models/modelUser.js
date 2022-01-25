@@ -1,7 +1,5 @@
 module.exports = (sequelize,DataTypes) =>{
 
-
-
 const User = sequelize.define('user', {
   // Model attributes are defined here
    
@@ -26,14 +24,25 @@ const User = sequelize.define('user', {
 
   bio : {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
     unique : true
   },
   isAdmin : {
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
+  },
+  imageUrl : {
+    type : DataTypes.STRING,
   }
 
-})
+},
+{
+  timestamps: true,
+  createdAt: true,
+  updatedAt: true,
+},
+
+
+)
 return User
 };
 

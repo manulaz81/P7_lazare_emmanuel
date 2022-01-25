@@ -6,60 +6,68 @@ const jwt = require('jsonwebtoken');
 const User = db.users;
 // const Message = db.messages;
 
-// const fs = require ('fs');
+const fs = require ('fs');
 
 exports.signUp = (req, res, next) => {
-	User.create({
-		email: req.body.email,
-		username: req.body.username,
-		password: bcrypt.hashSync(req.body.password, 8),
 
-		bio: req.body.bio,
-		isAdmin: req.body.isAdmin, // user role = 1 créer un booléen si User ou Admin (Tinyint 0 ou 1)
-	})
-		.then(() => {
-			res.send({ message: "L'utilisateur est bien enregistré !" });
-		})
-		.catch((err) => {
-			res.status(500).send({ message: err.message });
+	bcrypt
+	.hash(req.body.password, 10)
+	.then((hash) => {
+		const user = new User({
+			email: req.body.email,
+			username : req.body.username,
+			password: hash,
 		});
+		console.log(user);
+		user
+			.save()
+			.then(() => res.status(201).json({ message: 'Utilisateur créé !' },))
+			.catch((error) => res.status(400).json({ message: 'utilisateur déjà enregistré !!' }));
+	})
+	.catch((error) => res.status(500).json({ error }));
+	
+	// User.create({
+	// 	email: req.body.email,
+	// 	username: req.body.username,
+	// 	password: bcrypt.hashSync(req.body.password, 8),
+	// })
+	// 	.then(() => {
+	// 		res.send({ message: "L'utilisateur est bien enregistré !" });
+	// 	})
+	// 	.catch((err) => {
+	// 		res.status(500).send({ message: err.message });
+	// 	});
 };
 
 exports.login = (req, res, next) => {
-	User.findOne({
-		where: {
-			email: req.body.email,
-		},
-	})
 
-		.then((user) => {
+	User
+		.findOne({ email: req.body.email })
+		.then(user => {
+			
 			if (!user) {
-				return res.status(404).send({ message: 'Utilisateur non enregistré !' });
+				return res.status(401).json({ error: 'Utilisateur non trouvé !' });
 			}
-
-			let passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
-
-			if (!passwordIsValid) {
-				return res.status(401).send({
-					accessToken: null,
-					message: 'Mot de passe invalide !',
-				});
-			}
-
-			let token = jwt.sign({ id: user.id }, { expiresIn: 86400 });
-
-			res.status(200).json({
-				id: user.id,
-				username: user.username,
-				email: user.email,
-				isAdmin: user.isAdmin,
-				accessToken: token,
-				userToken: userToken,
-			});
+			bcrypt
+				.compare(req.body.password, user.password)
+				.then(valid => {
+					if (!valid) {
+						return res.status(401).json({ error: 'Mot de passe incorrect !' });
+					}
+					res.status(200).json({
+						userId: user._id,
+						// on passe 3 arguments
+						token : jwt.sign(
+							{userId: user._id},
+							'RANDOM_TOKEN_SECRET',
+							{ expiresIn:'24h' }
+						)
+						
+					});
+				})
+				.catch(error => res.status(500).json({ error }));
 		})
-		.catch((err) => {
-			res.status(500).send({ message: err.message });
-		});
+		.catch(error => res.status(500).json({ error }));
 };
 
 // Supprimer le compte d'utilisateur
@@ -79,9 +87,15 @@ exports.deleteUser = (req, res) => {
 //Mettre à jour un utilisateur
 
 exports.modifyUser = (req, res) => {
-	User.destroy({
-		where: { id: req.params.id },
-	})
+	User.update(
+		{email : req.body.email,
+			username : req.body.username,
+			password :  req.body.password,
+			imageUrl : `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+			bio : req.body.bio
+		},
+		{where: { id: req.params.id }}
+	)
 		.then(() => {
 			res.send({ message: 'votre compte a bien été modifié!' });
 		})
@@ -89,6 +103,7 @@ exports.modifyUser = (req, res) => {
 			res.status(500).send({ message: err.message });
 		});
 };
+
 
 // récuperer un utilisateur
 
@@ -121,5 +136,3 @@ exports.getAllUsers = (req, res, next) => {
 	
 };
 
-//Mettre à jour un utilisateur
-// photo: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
