@@ -1,9 +1,8 @@
 module.exports = (sequelize, DataTypes) => {
-	const Commentaire = sequelize.define(
-		'commentaire',
-		{
-			idcommentaires: {
-				type: DataTypes.INTEGER,
+	const Commentary = sequelize.define( 'commentaire', {
+			
+        idcommentaires: {
+				type: DataTypes.STRING,
 			},
 			comments: {
 				type: DataTypes.TEXT,
@@ -12,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
 			usersId: {
 				type: DataTypes.TEXT,
 			},
+
 			likes: {
 				type: DataTypes.TEXT,
 			},
@@ -23,5 +23,5 @@ module.exports = (sequelize, DataTypes) => {
 		},
 	);
 
-	return Commentaire;
+	return Commentary;
 };

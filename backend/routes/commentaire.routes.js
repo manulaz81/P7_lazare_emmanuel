@@ -9,5 +9,5 @@ const router =  express.Router();
 
 router.post('/', commControllers.postCommentaires);
 
-
+router.get('/', commControllers.getAllCommentaires);
 module.exports = router;
