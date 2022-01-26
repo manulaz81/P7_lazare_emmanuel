@@ -2,19 +2,27 @@ module.exports = (sequelize, DataTypes) => {
 	const Commentary = sequelize.define( 'commentaire', {
 			
         idcommentaires: {
-				type: DataTypes.STRING,
+				type: DataTypes.INTEGER,
+                
 			},
 			comments: {
 				type: DataTypes.TEXT,
 			},
 			
-			usersId: {
+			userId: {
 				type: DataTypes.TEXT,
 			},
+            imageUrl :{
+                type:DataTypes.TEXT
+            },
 
 			likes: {
 				type: DataTypes.TEXT,
 			},
+            id: {
+               primaryKey: true,
+                type: DataTypes.INTEGER
+            },
 		},
 		{
 			timestamps: true,
