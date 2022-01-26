@@ -1,6 +1,6 @@
 const db = require('../models');
 // const User = db.users;
-const { user } = require('../models');
+// const { user } = require('../models');
 const Message = db.messages;
 
 exports.postMessage = (req, res, next) => {

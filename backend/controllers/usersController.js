@@ -91,7 +91,7 @@ exports.modifyUser = (req, res) => {
 		{email : req.body.email,
 			username : req.body.username,
 			password :  req.body.password,
-			imageUrl : `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+			// imageUrl : `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
 			bio : req.body.bio
 		},
 		{where: { id: req.params.id }}

@@ -5,11 +5,12 @@ const app = express();
 app.use(express.json());
 
 // gestionnaire de routage
-// const path = require ('path');
+const path = require ('path');
 
 //import des routes
 const usersRoute = require ('./routes/user.routes');
 const messageRoute = require ('./routes/message.routes');
+const commentairesRoute = require ('./routes/commentaire.routes');
 
 //cors
 app.use((req, res, next) => {
@@ -24,9 +25,10 @@ app.use((req, res, next) => {
 // connexion Database
   const db = require('./config/dbConfig');  
 
-// app.use('/images', express.static(path.join(__dirname,'images')));
+app.use('/images', express.static(path.join(__dirname,'images')));
 app.use('/api/auth',usersRoute);
 app.use('/api/messages',messageRoute);
+app.use('/api/commentaires',commentairesRoute);
 
 
 module.exports = app ;

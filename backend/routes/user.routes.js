@@ -1,7 +1,8 @@
 const express = require('express');
 
 const userControllers =  require ( '../controllers/usersController');
-const auth = require('../middleware/auth');
+// const auth = require('../middleware/auth');
+const multer = require('../middleware/multer-config');
 
 const router =  express.Router();
 
@@ -13,7 +14,7 @@ router.post('/signup',userControllers.signUp);
 router.post('/login',userControllers.login);
 
 //route pour mettre à jour son profil
-router.put('/:id', userControllers.modifyUser);
+router.put('/:id',multer, userControllers.modifyUser);
 
 //route pour supprimer son compte
 router.delete('/:id', userControllers.deleteUser);
