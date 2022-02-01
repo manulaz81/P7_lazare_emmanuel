@@ -25,18 +25,7 @@ exports.signUp = (req, res, next) => {
 			.catch((error) => res.status(400).json({ message: 'utilisateur déjà enregistré !!' }));
 	})
 	.catch((error) => res.status(500).json({ error }));
-	
-	// User.create({
-	// 	email: req.body.email,
-	// 	username: req.body.username,
-	// 	password: bcrypt.hashSync(req.body.password, 8),
-	// })
-	// 	.then(() => {
-	// 		res.send({ message: "L'utilisateur est bien enregistré !" });
-	// 	})
-	// 	.catch((err) => {
-	// 		res.status(500).send({ message: err.message });
-	// 	});
+
 };
 
 exports.login = (req, res, next) => {

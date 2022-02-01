@@ -121,22 +121,22 @@ Commentaire.update(
 
 };
 
-exports.dislikeCommentaires =(req, res, next) =>{ 
-    const like = req.body.likes
-    Commentaire.update(
-        {            likes : req.body.likes       
+// exports.dislikeCommentaires =(req, res, next) =>{ 
+//     const like = req.body.likes
+//     Commentaire.update(
+//         {            likes : req.body.likes       
             
-        },
-        {where: { id: req.params.id }}
-    )
-        .then(() => {
-            res.send({ message: 'vous aimez ce commentaire !' });
-        })
-        .catch((err) => {
-            res.status(500).send({ message: err.message });
-        });
+//         },
+//         {where: { id: req.params.id }}
+//     )
+//         .then(() => {
+//             res.send({ message: 'vous aimez ce commentaire !' });
+//         })
+//         .catch((err) => {
+//             res.status(500).send({ message: err.message });
+//         });
     
-    console.log(like);
+//     console.log(like);
     
     
-    };
+//     };
