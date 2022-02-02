@@ -3,7 +3,7 @@
 
   <div id="forum">
      
-    <forum/>
+    <forumgroup/>
     
   </div>
 </template>
@@ -11,12 +11,12 @@
 <script>
 
 
-import forum from '@/components/forumgroup.vue'
+import forumgroup from '@/components/forumgroup.vue'
 
 export default {
   name: '#forum',
   components: {
-    profile
+    forumgroup
   }
 }
 </script>
