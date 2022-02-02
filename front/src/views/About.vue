@@ -6,6 +6,8 @@
      <img id="photo_logo" alt="Vue logo" src="../assets/icon.png">
     <register/>
     
+    <!-- <profile/> -->
+    
   </div>
 </template>
 
@@ -13,10 +15,18 @@
 import register from '@/components/register.vue'
 
 
+
 export default {
   name: '#registre',
   components: {
-    register
+    register,
   }
 }
 </script>
+
+<style scoped>
+#photo_logo {
+width : 110px;
+
+  }
+</style>
