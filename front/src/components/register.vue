@@ -2,7 +2,10 @@
 <template>
 			<form id="formulaire" action="https://www.yahoo.com" method="post" novalidate="">
 				<p v-if= "pseudo">Inscription</p>
-        <p v-else>Connectez vous avec vos identifiants</p>				
+     
+
+				<p>Vous n'avez pas compte ?</p>
+				<p >Inscrivez-vous !</p>
 
 				<p><label for="email">Email</label></p>
 				<p><input id="email" type="email" name="email" placeholder="votre email" /></p>
@@ -10,8 +13,11 @@
 				<p><label for="password">Password</label></p>
 				<p><input id="email" type="email" name="email" placeholder="votre mot de passe" /></p>
 				
-				<button id="button_inscrit" v-on:click="alert('bisous')">Se connecter</button>
+				<p>	<label for="name">Pseudo</label></p>
+				<p>	<input id="name" type="text" name="name" placeholder="votre nom d'utilisateur" /></p>
 				
+				
+				<button v-on:click="updatePost()">S'inscrire</button>
 
 </form>
 
@@ -19,7 +25,7 @@
 
 <script>
 export default {
-    name : 'login', 
+    name : 'register', 
     
     }
 </script>
