@@ -1,15 +1,14 @@
 <script>
 export default{
-name : 'signUp'
+name : 'navigation'
 }
 </script>
 
 
 <template>
-			<div id="app">
 			<form id="formulaire" action="https://www.yahoo.com" method="post" novalidate="">
-				<p v-if="pseudo">Inscription</p>
-				<p v-else>Connexion</p>
+				<p v-if= "pseudo">Inscription</p>
+        <p v-else>Connexion</p>
 
 				<p>Vous n'avez pas compte ?</p>
 				<button href v-on:click="pseudo">Inscrivez-vous !</button>
@@ -23,13 +22,25 @@ name : 'signUp'
 					<label for="name">Pseudo</label>
 					<input id="name" type="text" name="name" placeholder="votre nom d'utilisateur" />
 				</p>
-				<button id="button_inscrit" v-on:click="alert('bisous')">Se connecter</button>
+				<button id="button_inscrit" v-on:click="alert('bisous')">Se connecter</button> -->
 				<!-- <button v-on:click="updatePost()">S'inscrire</button> -->
-				<ul>
+				<!-- <ul>
 					<li>{{posts}}</li>
 				</ul>
 			</form>
 		</div>
+
 </template>
 
-
+		<style> -->
+			<!-- #app {
+				text-align: center;
+				border: 1px solid black;
+        border-radius: 10px;
+				width: 30%;
+				vertical-align: center;
+				color: black;
+				font-size: rem;
+        background-color: cadetblue;
+			}
+		</style> -->
