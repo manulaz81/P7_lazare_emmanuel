@@ -1,9 +1,3 @@
-<script>
-export default{
-name : 'navigation'
-}
-</script>
-
 
 <template>
 			<form id="formulaire" action="https://www.yahoo.com" method="post" novalidate="">
@@ -23,15 +17,20 @@ name : 'navigation'
 					<input id="name" type="text" name="name" placeholder="votre nom d'utilisateur" />
 				</p>
 				<button id="button_inscrit" v-on:click="alert('bisous')">Se connecter</button> -->
-				<!-- <button v-on:click="updatePost()">S'inscrire</button> -->
-				<!-- <ul>
-					<li>{{posts}}</li>
-				</ul>
-			</form>
-		</div>
+				<button v-on:click="updatePost()">S'inscrire</button>
+
+</form>
 
 </template>
 
+<script>
+export default {
+    name : 'login', 
+    
+    }
+</script>
+
+			
 		<style> -->
 			<!-- #app {
 				text-align: center;
@@ -43,4 +42,4 @@ name : 'navigation'
 				font-size: rem;
         background-color: cadetblue;
 			}
-		</style> -->
+		</style>
