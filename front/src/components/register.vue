@@ -1,6 +1,6 @@
 
 <template>
-			<form id="formulaire" action="https://www.yahoo.com" method="post" novalidate="">
+			<form id="formulaire" action="http://www.yahoo.fr" method="post" novalidate="">
 				<p v-if= "pseudo">Inscription</p>
      
 
@@ -9,25 +9,46 @@
 
 				<p><label for="email">Email</label></p>
 				<p><input id="email" type="email" name="email" placeholder="votre email" /></p>
+				<span>Email non valide !</span>
 
 				<p><label for="password">Password</label></p>
 				<p><input id="email" type="email" name="email" placeholder="votre mot de passe" /></p>
-				
-				<p>	<label for="name">Pseudo</label></p>
+				<span>password non valide !</span>
+
+				<p>	<label for="name">Pseudo</label></p>				
 				<p>	<input id="name" type="text" name="name" placeholder="votre nom d'utilisateur" /></p>
-				
+				<span>pseudo déjà utilisé !</span>
 				
 				<button v-on:click="updatePost()">S'inscrire</button>
-
+			<p>{{posts}}</p>
 </form>
 
 </template>
 
 <script>
+
+// import axios from 'axios'
+
 export default {
-    name : 'register', 
+    name : 'register', 	
+	
+	
+
+// 	methods : {
+// updatePost() {
+// 					axios
+// 						.get('http://localhost:3000/api/messages')
+// 						.then((response) => (this.posts = response.data))
+						
+// 				},
+
+// 	}
     
     }
+
+
+
+
 </script>
 
 			

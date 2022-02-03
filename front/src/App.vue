@@ -6,9 +6,11 @@
     <router-link to="/">Connexion</router-link> |
     <router-link to="/about">S'incrire</router-link> |
     <router-link to="/profile">Profil</router-link> |
-    <router-link to="/forum">Forum</router-link>
-  </div>
+    <router-link to="/forum">Forum</router-link>    
+  
   <router-view/>
+  
+  </div>
 </template>
 
 <style lang="scss">
@@ -16,7 +18,9 @@
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: auto;
   text-align: center;
+
   color: #2c3e50;
 }
 
