@@ -19,9 +19,9 @@ router.get('/:id', messControllers.oneMessage);
 
 //modifier son message
 
-router.put('/', messControllers.modifyMessage);
+// router.put('/', messControllers.modifyMessage);
 
 //  suppression d'un message
-// router.delete('/', messControllers.deleteMessage);
+router.delete('/', messControllers.deleteMessage);
 
 module.exports = router;

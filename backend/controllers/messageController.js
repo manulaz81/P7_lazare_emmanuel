@@ -55,7 +55,26 @@ exports.allMessage = (req, res, next) => {
 
 // modifier son messages
 
-exports.modifyMessage = (req, res, next) => {
+exports.deleteMessage = (req, res, next) => {
+	const id = req.params.id;
 
-
-};
+	Message.destroy({
+	  where: { id: id }
+	})
+	  .then(num => {
+		if (num == 1) {
+		  res.send({
+			message: "Article supprimé!"
+		  });
+		} else {
+		  res.send({
+			message: `Impossible de supprimer l'article avec l'id=${id}.`
+		  });
+		}
+	  })
+	  .catch(err => {
+		res.status(500).send({
+		  message: "erreur lors de la suppression de l'article avec l'id=" + id
+		});
+	  });
+  };

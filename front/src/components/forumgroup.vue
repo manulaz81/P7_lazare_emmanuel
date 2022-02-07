@@ -10,11 +10,11 @@
 					<div class="message_group">{{ m.message }}</div>
 				</div>
 
-				<button class="btn_supp">supprimer</button>
+				<button class="btn_supp" v-on:click="deleteMessage">supprimer</button>
 			</div>
 			<button class="btn_rep">Répondre {{}}</button>
 		</div>
-	
+
 		<form id="register" method="post" v-on:submit="sendMessage">
 			<div class="message_perso">
 				<div>
@@ -56,10 +56,24 @@ export default {
 	},
 
 	methods: {
-deleteMessage(){
+		deleteMessage() {
+			axios
+				.delete('http://localhost:3000/api/messages/49', {
+					
+				})
+				.then((res) => {
+					console.log(res);
+					alert('Votre commentaire a ete supprimé!');
+					this.$router.push('http://localhost:8080/forum');
+				})
+				.catch(() => {
+					alert('impossible à supprimer');
+					this.$router.push('http://localhost:8080/forum');
 
-
-},
+					console.error('Do that');
+					// .catch((erreur) => (this.posts = [{ id: 'erreur de chargement' }]));
+				});
+		},
 
 		sendMessage() {
 			axios
