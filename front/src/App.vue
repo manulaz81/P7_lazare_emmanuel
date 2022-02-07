@@ -1,8 +1,6 @@
 <template>
   <div id="nav"> 
 
-
-
     <router-link to="/">Connexion</router-link> |
     <router-link to="/about">S'incrire</router-link> |
     <router-link to="/profile">Profil</router-link> |

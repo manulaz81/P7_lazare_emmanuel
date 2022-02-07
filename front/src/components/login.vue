@@ -21,8 +21,7 @@ export default {
 	name: 'login',
 
 	data() {
-		return {
-			
+		return {			
 			email: '',
 			password: '',
 		};
@@ -52,7 +51,7 @@ export default {
 	text-align: center;
 	border: 1px solid black;
 	border-radius: 10px;
-	width: 30%;
+	width: 60%;
 	vertical-align: center;
 	color: black;
 	font-size: rem;

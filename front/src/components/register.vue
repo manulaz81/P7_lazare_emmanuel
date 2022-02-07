@@ -53,7 +53,7 @@ export default {
 				})
 				.catch(() => {
 					alert('Votre compte existe déjà');
-					this.$router.push('http://localhost:8080');
+					this.$router.push('http://localhost:8080/forum');
 
 					console.error('Do that');
 					// .catch((erreur) => (this.posts = [{ id: 'erreur de chargement' }]));

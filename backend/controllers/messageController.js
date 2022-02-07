@@ -6,11 +6,11 @@ const Message = db.messages;
 exports.postMessage = (req, res, next) => {
 	console.log(req.body.userId);
 	Message.create({
-		id: req.body.id,
-		idMessage: req.body.idMessage,
-		userId: req.body.userId,
-		like: req.body.like,
-		created: req.body.created,
+		// id: req.body.id,
+		// idMessage: req.body.idMessage,
+		// userId: req.body.userId,
+		// like: req.body.like,
+		// created: req.body.created,
 		message: req.body.message,
 	})
 		.then(() => {
@@ -38,9 +38,13 @@ exports.oneMessage = (req, res, next) => {
 
 // voir tout les messages
 exports.allMessage = (req, res, next) => {
-	Message.findAll()
+	Message.findAll({
+		order: [['updatedAt', "DESC"], ['createdAt', "DESC"]] },
+	)
 
 		.then((allMessages) => {
+			
+
 			res.send(allMessages);
 		})
 		.catch((err) => {
