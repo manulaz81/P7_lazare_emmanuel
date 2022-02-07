@@ -1,66 +1,87 @@
-
 <template>
-			<form id="formulaire" action="http://www.yahoo.fr" method="post" novalidate="">
-				<p v-if= "pseudo">Inscription</p>
-     
+	<form id="register" method="post" @submit="updatePost">
+		<p v-if="pseudo">Inscription</p>
 
-				<p>Vous n'avez pas compte ?</p>
-				<p >Inscrivez-vous !</p>
+		<p>Vous n'avez pas compte ?</p>
+		<p>Inscrivez-vous !</p>
 
-				<p><label for="email">Email</label></p>
-				<p><input id="email" type="email" name="email" placeholder="votre email" /></p>
-				<span>Email non valide !</span>
+		<p><label for="email">Email</label></p>
+		<p><input id="email" type="email" name="email" placeholder="votre email" v-model="email" required /></p>
+		<span v-if="!email">Email non valide !</span>
 
-				<p><label for="password">Password</label></p>
-				<p><input id="email" type="email" name="email" placeholder="votre mot de passe" /></p>
-				<span>password non valide !</span>
+		<p><label for="password">Password</label></p>
+		<p>
+			<input id="email" type="password" name="email" placeholder="votre mot de passe" v-model="password" required />
+		</p>
+		<span v-if="!password">password non valide !</span>
 
-				<p>	<label for="name">Pseudo</label></p>				
-				<p>	<input id="name" type="text" name="name" placeholder="votre nom d'utilisateur" /></p>
-				<span>pseudo déjà utilisé !</span>
-				
-				<button v-on:click="updatePost()">S'inscrire</button>
-			<p>{{posts}}</p>
-</form>
+		<p><label for="name">Pseudo</label></p>
+		<p><input id="name" type="text" name="name" placeholder="votre nom d'utilisateur" v-model="username" required /></p>
 
+		<button>S'inscrire</button>
+	</form>
 </template>
 
 <script>
-
-// import axios from 'axios'
+import axios from 'axios';
+// import Vue from 'vue'
 
 export default {
-    name : 'register', 	
-	
-	
+	name: 'register',
+	data() {
+		return {
+			username: '',
+			email: '',
+			password: '',
+			info: '',
+		};
+	},
 
-// 	methods : {
-// updatePost() {
-// 					axios
-// 						.get('http://localhost:3000/api/messages')
-// 						.then((response) => (this.posts = response.data))
-						
-// 				},
+	methods: {
+		updatePost() {
+			axios
+				.post('http://localhost:3000/api/auth/signUp', {
+					username: this.username,
+					email: this.email,
+					password: this.password,
+				})
 
-// 	}
-    
-    }
+				.then((res) => {
+					console.log(res);
+					alert('Votre compte a bien été créé! Vous pouvez à présent vous connecter!');
+					this.$router.push('http://localhost:8080/forum');
+				})
+				.catch(() => {
+					alert('Votre compte existe déjà');
+					this.$router.push('http://localhost:8080');
 
+					console.error('Do that');
+					// .catch((erreur) => (this.posts = [{ id: 'erreur de chargement' }]));
+				});
+		},
+	},
 
+	// 	methods : {
+	// updatePost() {
+	// 					axios
+	// 						.get('http://localhost:3000/api/messages')
+	// 						.then((response) => (this.posts = response.data))
 
+	// 				},
 
+	// 	}
+};
 </script>
 
-			
-		<style> -->
-			<!-- #app {
-				text-align: center;
-				border: 1px solid black;
-        border-radius: 10px;
-				width: 30%;
-				vertical-align: center;
-				color: black;
-				font-size: rem;
-        background-color: cadetblue;
-			}
-		</style>
+<style>
+ #app {
+	text-align: center;
+	border: 1px solid black;
+	border-radius: 10px;
+	width: 30%;
+	vertical-align: center;
+	color: black;
+	font-size: rem;
+	background-color: cadetblue;
+}
+</style>
