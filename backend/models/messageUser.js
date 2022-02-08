@@ -15,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
 			like: {
 				type: DataTypes.TEXT,
 			},
+			imageUrl:{
+				type: DataTypes.TEXT,
+			}
 		},
 		{
 			timestamps: true,

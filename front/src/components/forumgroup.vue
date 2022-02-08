@@ -1,5 +1,28 @@
 <template>
 	<div class="forumgroup">
+		<form id="registerForum" method="post" v-on:submit="sendMessage">
+			<div class="message_perso">
+				<p><label for="pseudo"></label></p>
+				<p class="messagSend2">
+					<input
+						id="newMessageforum"
+						type="text"
+						name="email"
+						placeholder="Laisser votre message ..."
+						v-model="message"
+					/>
+				</p>
+				<div class="fichierJoint">
+					<div>
+						<p><label for="image"></label></p>
+						<p><input id="newPhoto" type="file" name="email" placeholder="une image" /></p>
+					</div>
+
+					<button id="button_valid">Publier</button>
+				</div>
+			</div>
+		</form>
+
 		<div class="message_Group" v-for="m in allMessage" :key="m.allMessage">
 			<div class="message_group1">
 				<div class="message_group2">
@@ -10,27 +33,15 @@
 					<div class="message_group">{{ m.message }}</div>
 				</div>
 
-				<button class="btn_supp" v-on:click="deleteMessage">supprimer</button>
+				<button class="btn_supp" v-on:click="deleteMessage">X</button>
 			</div>
-			<button class="btn_rep">Répondre {{}}</button>
+
+			<form id="commentairePost" method="post" v-on:submit="sendComment">
+				<div class="commentaires">Les commentaires des gens : {{}}</div>
+				<input class="btn_rep" placeholder="Votre commentaire..." v-model="comments" />
+				<button id="button_comments">envoi</button>
+			</form>
 		</div>
-
-		<form id="register" method="post" v-on:submit="sendMessage">
-			<div class="message_perso">
-				<div>
-					<p><label for="pseudo">Votre commentaire</label></p>
-					<p class="messagSend">
-						<input id="newMessage" type="text" name="email" placeholder="message" v-model="message" />
-					</p>
-				</div>
-				<div>
-					<p><label for="image">joindre une image</label></p>
-					<p><input id="newPhoto" type="file" name="email" /></p>
-				</div>
-
-				<button id="button_valid">envoyer</button>
-			</div>
-		</form>
 
 		<!-- les modifications de profil -->
 	</div>
@@ -46,6 +57,7 @@ export default {
 			imageMessage: '',
 			commentaire: ' ',
 			allMessage: '',
+			comments: '',
 		};
 	},
 	mounted() {
@@ -58,20 +70,17 @@ export default {
 	methods: {
 		deleteMessage() {
 			axios
-				.delete('http://localhost:3000/api/messages/49', {
-					
-				})
+				.delete('http://localhost:3000/api/messages/2710', {})
 				.then((res) => {
 					console.log(res);
 					alert('Votre commentaire a ete supprimé!');
 					this.$router.push('http://localhost:8080/forum');
 				})
 				.catch(() => {
-					alert('impossible à supprimer');
+					alert('vous n êtes pas à l origine de la publication vous ne pouvez pas supprimer le message');
 					this.$router.push('http://localhost:8080/forum');
 
 					console.error('Do that');
-					// .catch((erreur) => (this.posts = [{ id: 'erreur de chargement' }]));
 				});
 		},
 
@@ -90,7 +99,23 @@ export default {
 					this.$router.push('http://localhost:8080/forum');
 
 					console.error('Do that');
-					// .catch((erreur) => (this.posts = [{ id: 'erreur de chargement' }]));
+				});
+		},
+		sendComment() {
+			axios
+				.post('http://localhost:3000/api/commantaires', {
+					comments: this.comments,
+				})
+				.then((res) => {
+					console.log(res);
+					alert('le commentaire du commentaire est bien parti!');
+					this.$router.push('http://localhost:8080/forum');
+				})
+				.catch(() => {
+					alert('impossible de commenter, t ecris mal');
+					this.$router.push('http://localhost:8080/forum');
+
+					console.error('Do that');
 				});
 		},
 	},
@@ -98,6 +123,47 @@ export default {
 </script>
 
 <style scoped>
+#newMessageforum {
+	height: 50px;
+	width: 250px;
+	margin-right: 10px;
+}
+.messageSend2 {
+	margin: auto;
+}
+
+#button_comments {
+	width: 50px;
+	background-color: pink;
+}
+#commentairePost {
+	text-align: left;
+	margin-left: 15px;
+}
+
+#registerForum {
+	margin-top: 20px;
+	width: 350px;
+	border: thick double rgb(228, 184, 191);
+	border-radius: 10px;
+}
+.btn_rep {
+	text-align: left;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.message_nom {
+	font-weight: bold;
+	font-size: 1rem;
+	font-style: italic;
+}
+
+.forumgroup {
+	width: 370px;
+}
+.fichierJoint {
+	display: flex;
+}
 .card {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	max-width: 300px;
@@ -107,41 +173,44 @@ export default {
 .message_Group {
 	border: 1px solid black;
 	margin-top: 15px;
+	border-radius: 5px;
 }
-.message_perso {
+/* .message_perso {
 	display: flex;
-}
+} */
 
-#register {
-	margin-top: 20px;
-}
 .message_date {
 	text-align: right;
+	font-style: italic;
 }
-.message_group {
+/* .message_group {
 	background-color: aliceblue;
-}
+} */
 .title {
 	color: grey;
 	font-size: 18px;
 }
 .message_caract {
 	display: flex;
-
+	margin-top: 5px;
+	margin-bottom: 15px;
 	justify-content: space-around;
 	font-size: 0.8rem;
-	background-color: grey;
-	border-bottom: 1px solid black;
+	background-color: rgb(246, 216, 221);
 }
 .message_group2 {
 	width: 80%;
 }
 #button_valid {
 	width: 20%;
+	height: 35px;
+	background-color: rgb(246, 216, 221);
+	margin-bottom: 10px;
+	border-radius: 5px;
 }
 .btn_supp {
-	width: 20%;
-	background-color: gray;
+	width: 15px;
+	background-color: rgb(246, 216, 221);
 	border: 1px solid black;
 }
 
@@ -156,9 +225,6 @@ export default {
 #register {
 	border: 1px solid black;
 }
-/* #newPhoto{
-  width : 20%;
-} */
 
 button {
 	border: none;

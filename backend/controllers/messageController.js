@@ -5,6 +5,7 @@ const Message = db.messages;
 
 exports.postMessage = (req, res, next) => {
 	console.log(req.body.userId);
+	
 	Message.create({
 		// id: req.body.id,
 		// idMessage: req.body.idMessage,
@@ -12,6 +13,7 @@ exports.postMessage = (req, res, next) => {
 		// like: req.body.like,
 		// created: req.body.created,
 		message: req.body.message,
+		// imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
 	})
 		.then(() => {
 			res.send({ message: 'Le message est bien posté !' });
@@ -56,25 +58,14 @@ exports.allMessage = (req, res, next) => {
 // modifier son messages
 
 exports.deleteMessage = (req, res, next) => {
-	const id = req.params.id;
-
 	Message.destroy({
-	  where: { id: id }
+		where: { id: req.params.id },
 	})
-	  .then(num => {
-		if (num == 1) {
-		  res.send({
-			message: "Article supprimé!"
-		  });
-		} else {
-		  res.send({
-			message: `Impossible de supprimer l'article avec l'id=${id}.`
-		  });
-		}
-	  })
-	  .catch(err => {
-		res.status(500).send({
-		  message: "erreur lors de la suppression de l'article avec l'id=" + id
+		.then(() => {
+			res.send({ message: 'votre message a bien été supprimé !' });
+		})
+		.catch((err) => {
+			res.status(500).send({ message: err.message });
 		});
-	  });
-  };
+};
+

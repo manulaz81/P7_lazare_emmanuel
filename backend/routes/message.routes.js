@@ -5,7 +5,7 @@ const messControllers =  require ( '../controllers/messageController');
 const router =  express.Router();
 
 // const auth = require('../middleware/auth');
-// const multer = require('../middleware/multer-config');
+const multer = require('../middleware/multer-config');
 
 
 //  post d'un message
@@ -22,6 +22,6 @@ router.get('/:id', messControllers.oneMessage);
 // router.put('/', messControllers.modifyMessage);
 
 //  suppression d'un message
-router.delete('/', messControllers.deleteMessage);
+router.delete('/:id', messControllers.deleteMessage);
 
 module.exports = router;

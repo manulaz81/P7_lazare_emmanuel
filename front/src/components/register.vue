@@ -75,13 +75,14 @@ export default {
 
 <style>
  #app {
-	text-align: center;
 	border: 1px solid black;
 	border-radius: 10px;
-	width: 30%;
-	vertical-align: center;
+	margin: auto;
+	width: 30%;	
 	color: black;
 	font-size: rem;
-	background-color: cadetblue;
+	background-color: white;
+	
+
 }
 </style>

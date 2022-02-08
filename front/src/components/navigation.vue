@@ -27,6 +27,6 @@ export default {
 				vertical-align: center;
 				color: black;
 				font-size: rem;
-        background-color: cadetblue;
+        
 			}
 		</style>

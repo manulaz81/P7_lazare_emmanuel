@@ -8,7 +8,7 @@ const router =  express.Router();
 
 //  pour poster un commentaire
 
-router.post('/',multer, commControllers.postCommentaires);
+router.post('/', commControllers.postCommentaires);
 
 
 // voir tout les commentaires

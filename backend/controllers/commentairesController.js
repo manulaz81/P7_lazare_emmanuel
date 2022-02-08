@@ -8,12 +8,12 @@ exports.postCommentaires = (req, res, next) => {
 
 	Commentaire.create({
 		
-		idcommentaires: req.body.idcommentaires,
+		// idcommentaires: req.body.idcommentaires,
 		comments: req.body.comments,  
-        id : req.body.id,    
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-		created: req.body.createdAt,
-		updated : req.body.updatedAt
+        // id : req.body.id,    
+        // imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+		// created: req.body.createdAt,
+		// updated : req.body.updatedAt
 	})
 		.then(() => {
 			res.send({ message: 'Le message est bien posté !' });
