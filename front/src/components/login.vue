@@ -56,6 +56,6 @@ export default {
 	color: black;
 	font-size: rem;
 	background-color: white;
-	min-width: 290px;
+	min-width: 370px;
 }
 </style>

@@ -1,32 +1,40 @@
 <template>
-<ul>
-  <li><a href="#home">Home</a></li>
-  <li><a href="#news">forum</a></li>
-  <li><a href="#profil">profil</a></li>
-  <li><a href="#logout">logout</a></li>
-</ul>
-    
+  <div id="nav"> 
+
+    <router-link to="/">Connexion</router-link> |
+    <router-link to="/about">S'incrire</router-link> |
+    <router-link to="/profile">Profil</router-link> |
+    <router-link to="/forum">Forum</router-link> |   
+   <router-link to="/forum">Logout</router-link> 
+  <router-view/>
+
+  
+  
+  </div>
 </template>
 
-<script>
-export default {
-    name : 'navigation', 
-    
-    }
-</script>
+<style lang="scss">
+// #app {
+//   font-family: Avenir, Helvetica, Arial, sans-serif;
+//   -webkit-font-smoothing: antialiased;
+//   -moz-osx-font-smoothing: grayscale;
+//   margin: auto;
+//   text-align: center;
+// width: 650px;
+//   color: #2c3e50;
+// }
 
-			
-		<style> -->
-			<!-- ul {
-				text-align: center;
-                display: flex;
-                justify-content:space-around;
-				border: 1px solid black;
-        border-radius: 10px;
-				
-				vertical-align: center;
-				color: black;
-				font-size: rem;
-        
-			}
-		</style>
+#nav {
+  padding: 10px;
+  margin: auto;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #dda3d0;
+    }
+  }
+}
+</style>

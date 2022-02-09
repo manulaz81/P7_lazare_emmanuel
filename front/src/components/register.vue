@@ -20,6 +20,8 @@
 
 		<button>S'inscrire</button>
 	</form>
+
+	
 </template>
 
 <script>

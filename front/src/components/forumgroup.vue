@@ -17,6 +17,7 @@
 						<p><label for="image"></label></p>
 						<p><input id="newPhoto" type="file" name="email" placeholder="une image" /></p>
 					</div>
+			<div>{{mess}}</div>
 
 					<button id="button_valid">Publier</button>
 				</div>
@@ -50,7 +51,9 @@
 import axios from 'axios';
 export default {
 	name: 'forumgroup',
-
+props:[
+		'mess','chose',
+],
 	data() {
 		return {
 			message: '',
@@ -60,6 +63,7 @@ export default {
 			comments: '',
 		};
 	},
+	
 	mounted() {
 		axios
 			.get('http://localhost:3000/api/messages')
@@ -125,7 +129,7 @@ export default {
 <style scoped>
 #newMessageforum {
 	height: 50px;
-	width: 250px;
+	width: 220px;
 	margin-right: 10px;
 }
 .messageSend2 {
@@ -159,7 +163,7 @@ export default {
 }
 
 .forumgroup {
-	width: 370px;
+	width: 350px;
 }
 .fichierJoint {
 	display: flex;
@@ -212,11 +216,13 @@ export default {
 	width: 15px;
 	background-color: rgb(246, 216, 221);
 	border: 1px solid black;
+	display: none;
 }
 
 .message_group1 {
 	display: flex;
 	justify-content: space-around;
+	margin-bottom: 15px;
 }
 
 .messagSend {

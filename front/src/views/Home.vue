@@ -1,5 +1,6 @@
 <template>
   <div class="Home">
+    <navigation/>
     <p>Bienvenue sur le réseau social de l'entreprise Groupomania</p>
     <img id="photo_logo" alt="Vue logo" src="../assets/icon.png">
 <!-- <p>Nous sommes le {{$store.getters.formattedDate}}</p> -->
@@ -16,12 +17,13 @@
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
 import login from '@/components/login.vue'
+import navigation from '@/components/navigation.vue'
 import axios from 'axios'
 
 export default {
   name: 'Home',
   components: {
-    login
+    login, navigation
   },
 methods : {
 

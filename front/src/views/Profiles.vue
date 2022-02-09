@@ -1,29 +1,26 @@
 <template>
+	<div id="profil">
+		<navigation />
 
-
-  <div id="profil">
-     
-    <profile/>
-    
-  </div>
+		<profile />
+	</div>
 </template>
 
 <script>
-
-
-import profile from '@/components/profile.vue'
+import profile from '@/components/profile.vue';
+import navigation from '@/components/navigation.vue';
 
 export default {
-  name: '#profil',
-  components: {
-    profile
-  }
-}
+	name: '#profil',
+	components: {
+		profile,
+		navigation,
+	},
+};
 </script>
 
 <style scoped>
 #photo_logo {
-width : 110px;
-
-  }
+	width: 110px;
+}
 </style>

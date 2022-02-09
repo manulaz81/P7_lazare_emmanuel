@@ -2,21 +2,26 @@
 
 
   <div id="forum">
-     
-    <forumgroup/>
+     <navigation/>
+    <forumgroup mess="bisous les enfants"/>
+   <commentaire/>
     
   </div>
 </template>
 
 <script>
 
-
+import navigation from '@/components/navigation.vue'
 import forumgroup from '@/components/forumgroup.vue'
+import commentaire from '@/components/commentaire.vue'
+
+
+
 
 export default {
   name: '#forum',
   components: {
-    forumgroup
+    forumgroup,commentaire,navigation
   }
 }
 </script>

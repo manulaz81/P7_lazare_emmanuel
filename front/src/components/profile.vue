@@ -1,10 +1,27 @@
 <template>
 	<div id="profile">
-		<p>Votre profil</p>
-		<img id="photoProfil" src="{{imageProfil}}" alt="photoProfil" style="width: 100%" />
-		<p>Votre email : {{ email }}</p>
-		<p>Votre pseudo :{{ pseudo }}</p>
-		<p>votre biographie : {{ bio }}</p>
+		<p class="titreProfil">Votre profil</p>
+		<div class="partOne">
+			<div class="photoProfil">
+				<img id="photoProfil" src="../assets/1saucepimente.jpg" alt="photoProfil" style="width: 100%" />
+			</div>
+			<div class="infoProfil">
+				<div class="emailProfil">
+					Email
+					<div class="recupEmail">{{ email }}</div>
+				</div>
+				<div class="pseudol">
+					Pseudo
+					<p>{{ pseudo }}</p>
+				</div>
+
+				<div class="votreBio">
+					Biographie
+					<p> {{ bio }}</p>
+				</div>
+			</div>
+		</div>
+
 		<!-- les modifications de profil -->
 		<button v-on:click="updateProfil">Mettre à jour son profil</button>
 
@@ -138,13 +155,45 @@ export default {
 </script>
 
 <style scoped>
+/******************************************************body ***************************************/
 #button__suppressioncompte {
 	margin-top: 10px;
-	background-color: aliceblue;
+
+	background-color: rgb(238, 96, 96);
 	color: #000;
 }
 #register {
 	display: none;
+}
+
+.titreProfil{
+font-size: 1.8rem;
+font-weight: bolder;
+
+}
+.partOne {
+	display: flex;
+	margin-bottom: 20px;
+}
+.emailProfil, .votreBio, .pseudol{
+	font-size: 1.5rem;
+	font-family:'Courier New', Courier, monospace;
+	font-weight:bold;
+	text-align: left;
+	margin-bottom: 20px;
+	justify-content: space-around;
+	
+};
+.photoProfil {
+	width: 45%;
+	border: 1rem solid pink;
+	margin-right: 10px;
+}
+.infoProfil {
+	width: 45%;
+	padding : 10px;
+	border: 3px solid pink;
+	border-radius: 15px;
 }
 
 .card {
@@ -165,7 +214,7 @@ button {
 	display: inline-block;
 	padding: 8px;
 	color: white;
-	background-color: #000;
+	background-color: pink;
 	text-align: center;
 	cursor: pointer;
 	width: 100%;
