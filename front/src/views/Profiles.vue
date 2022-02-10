@@ -1,7 +1,6 @@
 <template>
 	<div id="profil">
 		<navigation />
-
 		<profile />
 	</div>
 </template>

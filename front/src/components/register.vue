@@ -18,7 +18,7 @@
 		<p><label for="name">Pseudo</label></p>
 		<p><input id="name" type="text" name="name" placeholder="votre nom d'utilisateur" v-model="username" required /></p>
 
-		<button>S'inscrire</button>
+		<button  id="button_inscrit">S'inscrire</button>
 	</form>
 
 	
@@ -50,7 +50,7 @@ export default {
 
 				.then((res) => {
 					console.log(res);
-					alert('Votre compte a bien été créé! Vous pouvez à présent vous connecter!');
+					alert('Votre compte a bien été créé! Vous êtes connecté maintenant!');
 					this.$router.push('http://localhost:8080/forum');
 				})
 				.catch(() => {
@@ -75,16 +75,6 @@ export default {
 };
 </script>
 
-<style>
- #app {
-	border: 1px solid black;
-	border-radius: 10px;
-	margin: auto;
-	width: 30%;	
-	color: black;
-	font-size: rem;
-	background-color: white;
-	
+<style lang="scss">
 
-}
 </style>

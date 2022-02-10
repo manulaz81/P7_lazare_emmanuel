@@ -8,16 +8,16 @@
 			<div class="infoProfil">
 				<div class="emailProfil">
 					Email
-					<div class="recupEmail">{{ email }}</div>
+					<p class="lesInfos">{{ email }}</p>
 				</div>
 				<div class="pseudol">
 					Pseudo
-					<p>{{ pseudo }}</p>
+					<p class="lesInfos">{{ pseudo }}</p>
 				</div>
 
 				<div class="votreBio">
 					Biographie
-					<p> {{ bio }}</p>
+					<p class="lesInfos">{{ bio }}</p>
 				</div>
 			</div>
 		</div>
@@ -25,27 +25,38 @@
 		<!-- les modifications de profil -->
 		<button v-on:click="updateProfil">Mettre à jour son profil</button>
 
-		<button id="button__suppressioncompte" v-on:click="deleteCompte">Supprimer votre compte</button>
+		<form id="registerProfil" method="put" @submit="updatePost">
+			<div class="changement">
+				<p class="modifProfil"><label for="email">Votre nouvel Email</label></p>
+				<p class="modifProfil2"><input id="newEmail" type="email" name="email" placeholder="votre email" /></p>
 
-		<form id="register" method="put" @submit="updatePost">
-			<p>Mettez à jour vos données</p>
+				<p class="modifProfil"><label for="pseudo">Votre nouveau pseudo</label></p>
+				<p class="modifProfil2"><input id="newPseudo" type="text" name="email" placeholder="votre nouveau pseudo" /></p>
 
-			<p><label for="email">Votre nouvel Email</label></p>
-			<p><input id="newEmail" type="email" name="email" placeholder="votre email" /></p>
+				<p class="modifProfil"><label for="name">Votre nouvelle bio</label></p>
+				<p class="modifProfil2"><input id="newBio" type="text" name="name" placeholder="votre bio" /></p>
 
-			<p><label for="pseudo">Votre nouveau pseudo</label></p>
-			<p><input id="newPseudo" type="text" name="email" placeholder="votre nouveau pseudo" /></p>
+				<p class="modifProfil"><label for="password2">Votre nouveau mot de passe</label></p>
+				<p class="modifProfil2">
+					<input id="newPassword2" type="password" name="email" placeholder="votre nouveau mot de passe" />
+				</p>
 
-			<p><label for="name">Votre nouvelle bio</label></p>
-			<p><input id="newBio" type="text" name="name" placeholder="votre bio" /></p>
+				<p class="modifProfil"><label for="password">Confirmez votre nouveau mot de passe</label></p>
+				<p class="modifProfil2">
+					<input id="newPassword" type="password" name="email" placeholder="votre nouveau mot de passe" />
+				</p>
 
-			<p><label for="password">Votre nouveau mot de passe</label></p>
-			<p><input id="newPassword" type="password" name="email" placeholder="votre nouveau mot de passe" /></p>
+				<p class="modifProfil"><label for="password">Votre nouvelle photo de profil</label></p>
+				<p class="modifProfil2"><input id="newPhoto" type="file" name="email" /></p>
+			</div>
 
-			<p><label for="password">Votre nouvelle photo de profil</label></p>
-			<p><input id="newPhoto" type="file" name="email" /></p>
+			<div class="validation">
+				
+				<button id="button_valid">Valider vos données</button>
+				
+				<button id="button__suppressioncompte" v-on:click="deleteCompte">Supprimer votre compte</button>
 
-			<button id="button_valid">Valider vos données</button>
+			</div>
 		</form>
 	</div>
 </template>
@@ -65,7 +76,8 @@ export default {
 	},
 	methods: {
 		updateProfil() {
-			document.getElementById('register').style.display = 'block';
+			document.getElementById('registerProfil').style.display = 'block';
+			document.getElementById('registerProfil').style.display = 'flex';
 		},
 
 		deleteCompte() {
@@ -103,19 +115,19 @@ export default {
 
 			// puis je la renvoi dans la base de données
 
-			axios.put('http://localhost:3000/api/auth/122', {
+			axios.put('http://localhost:3000/api/auth/112', {
 				email: newEmail,
 			});
 			axios
-				.put('http://localhost:3000/api/auth/122', {
+				.put('http://localhost:3000/api/auth/112', {
 					username: newPseudo,
 				})
 
-				.put('http://localhost:3000/api/auth/122', {
+				.put('http://localhost:3000/api/auth/112', {
 					bio: newBio,
 				});
 			axios
-				.put('http://localhost:3000/api/auth/122', {
+				.put('http://localhost:3000/api/auth/112', {
 					imageUrl: newImage,
 				})
 
@@ -135,13 +147,13 @@ export default {
 	},
 
 	mounted() {
-		axios.get('http://localhost:3000/api/auth/122').then((response) => (this.pseudo = response.data.username));
+		axios.get('http://localhost:3000/api/auth/112').then((response) => (this.pseudo = response.data.username));
 
-		axios.get('http://localhost:3000/api/auth/122').then((response) => (this.email = response.data.email));
+		axios.get('http://localhost:3000/api/auth/112').then((response) => (this.email = response.data.email));
 
-		axios.get('http://localhost:3000/api/auth/122').then((response) => (this.bio = response.data.bio));
+		axios.get('http://localhost:3000/api/auth/112').then((response) => (this.bio = response.data.bio));
 
-		axios.get('http://localhost:3000/api/auth/122').then((response) => (this.imageProfil = response.data.imageUrl));
+		axios.get('http://localhost:3000/api/auth/112').then((response) => (this.imageProfil = response.data.imageUrl));
 	},
 
 	computed: {
@@ -154,44 +166,72 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss">
 /******************************************************body ***************************************/
 #button__suppressioncompte {
-	margin-top: 10px;
-
+	margin-bottom: 50px;
+	width: 200px;
+height: 70px;
+	border-radius: 15px;
 	background-color: rgb(238, 96, 96);
 	color: #000;
 }
-#register {
+#registerProfil{
 	display: none;
 }
 
-.titreProfil{
-font-size: 1.8rem;
-font-weight: bolder;
+#button_valid {
+	margin-bottom: 50px;
+		margin-right: 20px;
+	width: 180px;
+	border-radius: 15px;
+}
+.changement {
+	width: 50%;
 
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+.validation {
+	width: 50%;
+	
+	margin: auto;
+	display: flex;
+	flex-wrap: wrap;
+}
+.titreProfil {
+	font-size: 1.8rem;
+	font-weight: bolder;
 }
 .partOne {
 	display: flex;
 	margin-bottom: 20px;
 }
-.emailProfil, .votreBio, .pseudol{
-	font-size: 1.5rem;
-	font-family:'Courier New', Courier, monospace;
-	font-weight:bold;
+.emailProfil,
+.votreBio,
+.pseudol,
+.modifProfil {
+	font-size: 1.4rem;
+	font-family: 'Courier New', Courier, monospace;
+	font-weight: bold;
 	text-align: left;
 	margin-bottom: 20px;
 	justify-content: space-around;
-	
-};
+}
+
+.lesInfos {
+	font-family: cursive;
+}
+
 .photoProfil {
 	width: 45%;
 	border: 1rem solid pink;
 	margin-right: 10px;
 }
+
 .infoProfil {
 	width: 45%;
-	padding : 10px;
+	padding: 10px;
 	border: 3px solid pink;
 	border-radius: 15px;
 }
@@ -225,6 +265,21 @@ a {
 	text-decoration: none;
 	font-size: 22px;
 	color: black;
+}
+
+.modifProfil2 {
+	text-align: left;
+}
+#newEmail,
+#newPseudo,
+#newPassword2,
+#newPassword,
+#modifProfil,
+#newBio {
+	height: 30px;
+	width: 200px;
+	border-radius: 2px;
+	text-align: left;
 }
 
 button:hover,

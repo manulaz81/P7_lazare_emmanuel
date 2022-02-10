@@ -17,7 +17,7 @@
 						<p><label for="image"></label></p>
 						<p><input id="newPhoto" type="file" name="email" placeholder="une image" /></p>
 					</div>
-			<div>{{mess}}</div>
+					<!-- <div>{{mess}}</div> -->
 
 					<button id="button_valid">Publier</button>
 				</div>
@@ -28,6 +28,9 @@
 			<div class="message_group1">
 				<div class="message_group2">
 					<div class="message_caract">
+						<p class="photoUse">
+							<img id="photoUser" src="../assets/1saucepimente.jpg" alt="photoProfil" style="width: 100%" />
+						</p>
 						<div class="message_nom">mess de {{ m.idMessage }}</div>
 						<div class="message_date">posté le {{ m.createdAt }}</div>
 					</div>
@@ -51,9 +54,7 @@
 import axios from 'axios';
 export default {
 	name: 'forumgroup',
-props:[
-		'mess','chose',
-],
+	props: ['mess', 'chose'],
 	data() {
 		return {
 			message: '',
@@ -63,7 +64,7 @@ props:[
 			comments: '',
 		};
 	},
-	
+
 	mounted() {
 		axios
 			.get('http://localhost:3000/api/messages')
@@ -101,8 +102,6 @@ props:[
 				.catch(() => {
 					alert('impossible');
 					this.$router.push('http://localhost:8080/forum');
-
-					console.error('Do that');
 				});
 		},
 		sendComment() {
@@ -126,10 +125,21 @@ props:[
 };
 </script>
 
-<style scoped>
+<style lang="scss">
+#photoUser {
+	width: 20px;
+	object-fit: cover;
+	border-radius: 50px;
+	padding: 5px;
+}
+.photoUse {
+	width: 50px;
+	margin-right: 15px;
+}
+
 #newMessageforum {
 	height: 50px;
-	width: 220px;
+	width: 460px;
 	margin-right: 10px;
 }
 .messageSend2 {
@@ -137,17 +147,24 @@ props:[
 }
 
 #button_comments {
-	width: 50px;
+	width: 70px;
+	height: 35px;
+	border-radius : 5px;
+	margin-left: 20px;
 	background-color: pink;
 }
 #commentairePost {
 	text-align: left;
 	margin-left: 15px;
 }
+.commentaires{
+text-align: left;
+font-family:'Times New Roman', Times, serif
 
+}
 #registerForum {
 	margin-top: 20px;
-	width: 350px;
+	width: 740px;
 	border: thick double rgb(228, 184, 191);
 	border-radius: 10px;
 }
@@ -155,6 +172,8 @@ props:[
 	text-align: left;
 	margin-top: 10px;
 	margin-bottom: 10px;
+	width : 420px;
+	height : 40px;
 }
 .message_nom {
 	font-weight: bold;
@@ -163,7 +182,8 @@ props:[
 }
 
 .forumgroup {
-	width: 350px;
+	width: 750px;
+	margin: auto;
 }
 .fichierJoint {
 	display: flex;
@@ -184,6 +204,7 @@ props:[
 } */
 
 .message_date {
+	margin-left: 15px;
 	text-align: right;
 	font-style: italic;
 }
@@ -196,14 +217,19 @@ props:[
 }
 .message_caract {
 	display: flex;
+	height: 56px;
 	margin-top: 5px;
 	margin-bottom: 15px;
-	justify-content: space-around;
+
 	font-size: 0.8rem;
 	background-color: rgb(246, 216, 221);
+	align-items: center;
+	padding: 0px;
 }
 .message_group2 {
-	width: 80%;
+	width: 100%;
+	text-align: left;
+	padding-left: 2px;
 }
 #button_valid {
 	width: 20%;

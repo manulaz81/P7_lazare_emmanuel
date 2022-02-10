@@ -21,41 +21,36 @@ export default {
 	name: 'login',
 
 	data() {
-		return {			
+		return {
 			email: '',
 			password: '',
 		};
 	},
 	methods: {
 		updatePost() {
-			axios
-				.post('http://localhost:3000/api/signUp')
-				.then((response) => console.log(response.data))
-				this.$router.push('http://localhost:8080');
-				alert('bonjour et bienvenue sur le forum!')
+			axios.post('http://localhost:3000/api/signUp').then((response) => console.log(response.data));
+			this.$router.push('http://localhost:8080/forum');
+			alert('bonjour et bienvenue sur le forum!').catch(() => {
+				alert('Votre mot de passe et ou votre email sont incorrects');
+				this.$router.push('http://localhost:8080/forum');
 
-				.catch(() => {
-					alert('Votre mot de passe ou votre email est incorrect');
-					this.$router.push('http://localhost:8080');
-
-					console.error('Do that');
-					// .catch((erreur) => (this.posts = [{ id: 'erreur de chargement' }]));
-				});
+				console.error('Do that');
+				// .catch((erreur) => (this.posts = [{ id: 'erreur de chargement' }]));
+			});
 		},
 	},
 };
 </script>
 
-<style>
-#app {
-	text-align: center;
-	border: 1px solid black;
-	border-radius: 10px;
-	width: 60%;
-	vertical-align: center;
-	color: black;
-	font-size: rem;
-	background-color: white;
-	min-width: 370px;
+<style lang="scss">
+/*  */
+#button_inscrit {
+	background-color: pink;
+	width: 130px;
+	border-radius: 15px;
+	height: 3rem;
+	color: white;
+	margin-top: 15px;
+	margin-bottom: 20px;
 }
 </style>
