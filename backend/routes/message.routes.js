@@ -5,7 +5,7 @@ const messControllers =  require ( '../controllers/messageController');
 const router =  express.Router();
 
 // const auth = require('../middleware/auth');
-const multer = require('../middleware/multer-config');
+// const multer = require('../middleware/multer-config');
 
 
 //  post d'un message

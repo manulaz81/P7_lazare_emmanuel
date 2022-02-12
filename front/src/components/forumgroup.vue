@@ -33,11 +33,10 @@
 						</p>
 						<div class="message_nom">mess de {{ m.idMessage }}</div>
 						<div class="message_date">posté le {{ m.createdAt }}</div>
+						<input class="btn_supp" v-on:click="deleteMessage" type="checkbox" />supprimer le message
 					</div>
 					<div class="message_group">{{ m.message }}</div>
 				</div>
-
-				<button class="btn_supp" v-on:click="deleteMessage">X</button>
 			</div>
 
 			<form id="commentairePost" method="post" v-on:submit="sendComment">
@@ -78,7 +77,7 @@ export default {
 				.delete('http://localhost:3000/api/messages/2710', {})
 				.then((res) => {
 					console.log(res);
-					alert('Votre commentaire a ete supprimé!');
+					alert('Etes vous sur de supprimé le message?');
 					this.$router.push('http://localhost:8080/forum');
 				})
 				.catch(() => {
@@ -149,7 +148,7 @@ export default {
 #button_comments {
 	width: 70px;
 	height: 35px;
-	border-radius : 5px;
+	border-radius: 5px;
 	margin-left: 20px;
 	background-color: pink;
 }
@@ -157,10 +156,9 @@ export default {
 	text-align: left;
 	margin-left: 15px;
 }
-.commentaires{
-text-align: left;
-font-family:'Times New Roman', Times, serif
-
+.commentaires {
+	text-align: left;
+	font-family: 'Times New Roman', Times, serif;
 }
 #registerForum {
 	margin-top: 20px;
@@ -172,8 +170,8 @@ font-family:'Times New Roman', Times, serif
 	text-align: left;
 	margin-top: 10px;
 	margin-bottom: 10px;
-	width : 420px;
-	height : 40px;
+	width: 420px;
+	height: 40px;
 }
 .message_nom {
 	font-weight: bold;
@@ -242,7 +240,7 @@ font-family:'Times New Roman', Times, serif
 	width: 15px;
 	background-color: rgb(246, 216, 221);
 	border: 1px solid black;
-	display: none;
+	// display: none;
 }
 
 .message_group1 {

@@ -32,7 +32,10 @@ const User = sequelize.define('user', {
   },
   imageUrl : {
     type : DataTypes.STRING,
-  }
+  },
+  // users_admin: {
+  //   type : DataTypes.STRING,
+  // }
 
 },
 {
