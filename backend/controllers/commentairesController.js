@@ -10,7 +10,7 @@ exports.postCommentaires = (req, res, next) => {
 		
 		// idcommentaires: req.body.idcommentaires,
 		comments: req.body.comments,  
-        // id : req.body.id,    
+		fk_commentaire_messages : req.body.fk_commentaire_messages
         // imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
 		// created: req.body.createdAt,
 		// updated : req.body.updatedAt
@@ -40,59 +40,53 @@ exports.allcommentaires = (req, res, next) => {
 // route pour avoir le commentaire d'un id
 exports.oneCommentaire = (req, res, next) => {
 
-	const id = req.params.id;
-	
-	Commentaire.findByPk(id)
-		.then((data) => {
-			res.send(data);
-		})
-		.catch((err) => {
-			res.status(500).send({
-				message: "Problème de récupération de l'article avec l'id=" + id,
-			});
-		});
+	Commentaire.findOne({ where: { fk_commentaire_messages: req.params.fk_commentaire_messages } })
+		.then((commentaireUser) => res.status(200).json(commentaireUser))
+		.catch((error) => res.status(404).json({ error }));
 };
-
-// // route pour mettre a jour son commentaire
-// exports.oneCommentaire = (req, res, next) => {
-
-// 	const id = req.params.id;
-	
-// 	Commentaire.findByPk(id)
-// 		.then((data) => {
-// 			res.send(data);
-// 		})
-// 		.catch((err) => {
-// 			res.status(500).send({
-// 				message: "Problème de récupération de l'article avec l'id=" + id,
-// 			});
-// 		});
-// };
 
 //route pour modifier un commentaire
 
 exports.modifyCommentaires = (req, res, next) => {
-    Commentaire.update(
-		{            comments : req.body.comments,
-			imageUrl : `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-			
-		},
-		{where: { id: req.params.id }}
-	)
-		.then(() => {
-			res.send({ message: 'votre compte a bien été modifié!' });
-		})
-		.catch((err) => {
-			res.status(500).send({ message: err.message });
+
+	const id = req.params.fk_commentaire_messages;
+	console.log(id);
+	
+	const modification = req.file ? {
+	  comments: req.body.comments,
+	  userId: req.body.userId,
+	  likes : req.body.likes
+	//   image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+	} : {  
+	  comments: req.body.comments,
+	  userId: req.body.userId
+	}
+	  
+	Commentaire.update(modification, {
+	  where: { fk_commentaire_messages: id }
+	})
+	  .then(num => {
+		if (num == 1) {
+		  res.send({
+			message: "L'article est modifié"
+		  });
+		} else {
+		  res.send({
+			message: `Impossible de mettre à jour l'article avec l'id=${id}.`
+		  });
+		}
+	  })
+	  .catch(err => {
+		res.status(500).send({
+		  message: "erreur lors de la mise à jour de l'article avec l'id=" + id
 		});
-
-
-};
+	  });
+  };
 
 
 exports.deleteCommentaires = (req, res, next) => {
     Commentaire.destroy({
-		where: { id: req.params.id },
+		where: { fk_commentaire_messages: req.params.fk_commentaire_messages },
 	})
 		.then(() => {
 			res.send({ message: 'votre commentaire a bien été supprimé !' });
@@ -102,41 +96,22 @@ exports.deleteCommentaires = (req, res, next) => {
 		});
 };
 
-exports.likeCommentaires = (req, res, next) =>{
-const like = req.body.likes
-Commentaire.update(
-    {            likes : req.body.likes       
+// exports.likeCommentaires = (req, res, next) =>{
+// const like = req.body.likes
+// Commentaire.update(
+//     {            likes : req.body.likes       
         
-    },
-    {where: { id: req.params.id }}
-)
-    .then(() => 
+//     },
+//     {where: { id: req.params.id }}
+// )
+//     .then(() => 
     
-    {
-        res.send({ message: 'vous aimez ce commentaire !' });
-    })
-    .catch((err) => {
-        res.status(500).send({ message: err.message });
-    });
+//     {
+//         res.send({ message: 'vous aimez ce commentaire !' });
+//     })
+//     .catch((err) => {
+//         res.status(500).send({ message: err.message });
+//     });
 
-};
+// };
 
-// exports.dislikeCommentaires =(req, res, next) =>{ 
-//     const like = req.body.likes
-//     Commentaire.update(
-//         {            likes : req.body.likes       
-            
-//         },
-//         {where: { id: req.params.id }}
-//     )
-//         .then(() => {
-//             res.send({ message: 'vous aimez ce commentaire !' });
-//         })
-//         .catch((err) => {
-//             res.status(500).send({ message: err.message });
-//         });
-    
-//     console.log(like);
-    
-    
-//     };

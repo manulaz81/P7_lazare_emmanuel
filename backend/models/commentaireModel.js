@@ -19,6 +19,11 @@ module.exports = (sequelize, DataTypes) => {
 			likes: {
 				type: DataTypes.TEXT,
 			},
+			fk_commentaire_messages: {
+				type: DataTypes.TEXT,
+			},
+
+
             id: {
                primaryKey: true,
                 type: DataTypes.INTEGER
