@@ -17,7 +17,11 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			imageUrl:{
 				type: DataTypes.TEXT,
+			},
+			fk_message_users: {
+				type: DataTypes.TEXT,
 			}
+
 		},
 		{
 			timestamps: true,

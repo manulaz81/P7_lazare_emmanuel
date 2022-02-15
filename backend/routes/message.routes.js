@@ -4,24 +4,24 @@ const messControllers =  require ( '../controllers/messageController');
 
 const router =  express.Router();
 
-// const auth = require('../middleware/auth');
-// const multer = require('../middleware/multer-config');
+const auth = require('../middleware/auth');
+const multer = require('../middleware/multer-config');
 
 
 //  post d'un message
-router.post('/', messControllers.postMessage);
+router.post('/',auth,multer, messControllers.postMessage);
 
 // voir tout les messages
-router.get('/', messControllers.allMessage);
+router.get('/',auth, messControllers.allMessage);
 
 //voir un message
-router.get('/:id', messControllers.oneMessage);
+router.get('/:fk_message_users',auth, messControllers.oneMessage);
 
 //modifier son message
 
-// router.put('/', messControllers.modifyMessage);
+router.put('/:fk_message_users',auth,multer, messControllers.modifyMessage);
 
 //  suppression d'un message
-router.delete('/:id', messControllers.deleteMessage);
+router.delete('/:fk_message_users',auth, messControllers.deleteMessage);
 
 module.exports = router;

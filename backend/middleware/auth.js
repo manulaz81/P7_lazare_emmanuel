@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
     const userId = decodedToken.userId; // Récupération du userID
     console.log(userId);
 
-    
+// si l'idMessage est présent dans la requete et si l'id est différent de l'userId alors ...    
     if (req.body.userId && req.body.userId !== userId) { // Vérifier si userID correspond au token
       throw 'l\'utilisateur n\'es pas valable';
     } else {
