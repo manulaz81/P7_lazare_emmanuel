@@ -3,15 +3,13 @@ const db = require('../models');
 const { user } = require('../models');
 const Commentaire = db.commentaires;
 
-// poster un commentaire 
+// poster un commentaire
 exports.postCommentaires = (req, res, next) => {
-
 	Commentaire.create({
-		
 		// idcommentaires: req.body.idcommentaires,
-		comments: req.body.comments,  
-		fk_commentaire_messages : req.body.fk_commentaire_messages
-        // imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+		comments: req.body.comments,
+		fk_commentaire_messages: req.body.fk_commentaire_messages,
+		// imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
 		// created: req.body.createdAt,
 		// updated : req.body.updatedAt
 	})
@@ -23,10 +21,10 @@ exports.postCommentaires = (req, res, next) => {
 		});
 };
 
-// route pour avoir tout les commentaires 
+// route pour avoir tout les commentaires
 
 exports.allcommentaires = (req, res, next) => {
-    console.log(req.body)
+	console.log(req.body);
 	Commentaire.findAll()
 
 		.then((allMessages) => {
@@ -39,7 +37,6 @@ exports.allcommentaires = (req, res, next) => {
 
 // route pour avoir le commentaire d'un id
 exports.oneCommentaire = (req, res, next) => {
-
 	Commentaire.findOne({ where: { fk_commentaire_messages: req.params.fk_commentaire_messages } })
 		.then((commentaireUser) => res.status(200).json(commentaireUser))
 		.catch((error) => res.status(404).json({ error }));
@@ -48,44 +45,44 @@ exports.oneCommentaire = (req, res, next) => {
 //route pour modifier un commentaire
 
 exports.modifyCommentaires = (req, res, next) => {
-
 	const id = req.params.fk_commentaire_messages;
 	console.log(id);
-	
-	const modification = req.file ? {
-	  comments: req.body.comments,
-	  userId: req.body.userId,
-	  likes : req.body.likes
-	//   image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-	} : {  
-	  comments: req.body.comments,
-	  userId: req.body.userId
-	}
-	  
-	Commentaire.update(modification, {
-	  where: { fk_commentaire_messages: id }
-	})
-	  .then(num => {
-		if (num == 1) {
-		  res.send({
-			message: "L'article est modifié"
-		  });
-		} else {
-		  res.send({
-			message: `Impossible de mettre à jour l'article avec l'id=${id}.`
-		  });
-		}
-	  })
-	  .catch(err => {
-		res.status(500).send({
-		  message: "erreur lors de la mise à jour de l'article avec l'id=" + id
-		});
-	  });
-  };
 
+	const modification = req.file
+		? {
+				comments: req.body.comments,
+				userId: req.body.userId,
+				likes: req.body.likes,
+				//   image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+		  }
+		: {
+				comments: req.body.comments,
+				userId: req.body.userId,
+		  };
+
+	Commentaire.update(modification, {
+		where: { fk_commentaire_messages: id },
+	})
+		.then((num) => {
+			if (num == 1) {
+				res.send({
+					message: "L'article est modifié",
+				});
+			} else {
+				res.send({
+					message: `Impossible de mettre à jour l'article avec l'id=${id}.`,
+				});
+			}
+		})
+		.catch((err) => {
+			res.status(500).send({
+				message: "erreur lors de la mise à jour de l'article avec l'id=" + id,
+			});
+		});
+};
 
 exports.deleteCommentaires = (req, res, next) => {
-    Commentaire.destroy({
+	Commentaire.destroy({
 		where: { fk_commentaire_messages: req.params.fk_commentaire_messages },
 	})
 		.then(() => {
@@ -96,22 +93,4 @@ exports.deleteCommentaires = (req, res, next) => {
 		});
 };
 
-// exports.likeCommentaires = (req, res, next) =>{
-// const like = req.body.likes
-// Commentaire.update(
-//     {            likes : req.body.likes       
-        
-//     },
-//     {where: { id: req.params.id }}
-// )
-//     .then(() => 
-    
-//     {
-//         res.send({ message: 'vous aimez ce commentaire !' });
-//     })
-//     .catch((err) => {
-//         res.status(500).send({ message: err.message });
-//     });
-
-// };
 
