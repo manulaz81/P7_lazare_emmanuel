@@ -74,7 +74,7 @@ export default {
 	methods: {
 		deleteMessage() {
 			axios
-				.delete('http://localhost:3000/api/messages/2710', {})
+				.delete('http://localhost:3000/api/messages', {})
 				.then((res) => {
 					console.log(res);
 					alert('Etes vous sur de supprimé le message?');
@@ -89,8 +89,9 @@ export default {
 		},
 
 		sendMessage() {
+			// const userId = id ;
 			axios
-				.post('http://localhost:3000/api/messages', {
+				.post('http://localhost:3000/api/messages' , {
 					message: this.message,
 				})
 				.then((res) => {

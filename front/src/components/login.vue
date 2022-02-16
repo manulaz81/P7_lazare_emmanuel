@@ -1,5 +1,5 @@
 <template>
-	<form id="formulaire" action="http://www.yahoo.fr" method="post" novalidate="">
+	<form id="formulaire" action="http://localhost:8080/forum" method="post" novalidate="">
 		<p v-if="pseudo">Inscription</p>
 		<p v-else>Connectez vous avec vos identifiants</p>
 
@@ -28,15 +28,34 @@ export default {
 	},
 	methods: {
 		updatePost() {
-			axios.post('http://localhost:3000/api/signUp').then((response) => console.log(response.data));
-			this.$router.push('http://localhost:8080/forum');
-			alert('bonjour et bienvenue sur le forum!').catch(() => {
+
+
+			axios
+				.post('http://localhost:3000/api/login', {
+					email: this.email,
+					password: this.password,
+				}, {
+                    headers:{ 'Content-type': 'application/json'}
+                }
+			)
+
+				.then((response) => console.log(response.data.accesToken)
+	// 			axios.defaults.headers.common['authorization'] = `Bearer ${response.data.accessToken}`;
+	// refreshToken = response.data.refreshToken;
+	// loadUserInfos()
+	
+					// this.$router.push('http://localhost:8080/forum');
+					// alert('bonjour et bienvenue sur le forum!');
+				)
+			
+			.catch(() => {
 				alert('Votre mot de passe et ou votre email sont incorrects');
 				this.$router.push('http://localhost:8080/forum');
 
-				console.error('Do that');
 				// .catch((erreur) => (this.posts = [{ id: 'erreur de chargement' }]));
 			});
+
+		
 		},
 	},
 };

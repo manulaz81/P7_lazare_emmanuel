@@ -84,7 +84,7 @@ export default {
 			alert('etes vous sur de supprimer votre compte ?');
 
 			axios
-				.delete('http://localhost:3000/api/auth/122')
+				.delete('http://localhost:3000/api/auth/19')
 
 				.then((res) => {
 					console.log(res);
@@ -115,19 +115,19 @@ export default {
 
 			// puis je la renvoi dans la base de données
 
-			axios.put('http://localhost:3000/api/auth/3', {
+			axios.put('http://localhost:3000/api/auth/17', {
 				email: newEmail,
 			});
 			axios
-				.put('http://localhost:3000/api/auth/3', {
+				.put('http://localhost:3000/api/auth/17', {
 					username: newPseudo,
 				})
 
-				.put('http://localhost:3000/api/auth/3', {
+				.put('http://localhost:3000/api/auth/17', {
 					bio: newBio,
 				});
 			axios
-				.put('http://localhost:3000/api/auth/3', {
+				.put('http://localhost:3000/api/auth/17', {
 					imageUrl: newImage,
 				})
 
@@ -147,13 +147,13 @@ export default {
 	},
 
 	mounted() {
-		axios.get('http://localhost:3000/api/auth/7').then((response) => (this.pseudo = response.data.username));
+		axios.get('http://localhost:3000/api/auth/19').then((response) => (this.pseudo = response.data.username));
 
-		axios.get('http://localhost:3000/api/auth/7').then((response) => (this.email = response.data.email));
+		axios.get('http://localhost:3000/api/auth/19').then((response) => (this.email = response.data.email));
 
-		axios.get('http://localhost:3000/api/auth/7').then((response) => (this.bio = response.data.bio));
+		axios.get('http://localhost:3000/api/auth/19').then((response) => (this.bio = response.data.bio));
 
-		axios.get('http://localhost:3000/api/auth/7').then((response) => (this.imageProfil = response.data.imageUrl));
+		axios.get('http://localhost:3000/api/auth/19').then((response) => (this.imageProfil = response.data.imageUrl));
 	},
 
 	computed: {

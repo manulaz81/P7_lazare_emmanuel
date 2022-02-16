@@ -50,12 +50,12 @@ export default {
 
 				.then((res) => {
 					console.log(res);
-					alert('Votre compte a bien été créé! Vous êtes connecté maintenant!');
-					this.$router.push('http://localhost:8080/forum');
+					alert('Votre compte a bien été créé! Vous pouvez vous connecter maintenant!');
+					this.$router.push('http://localhost:8080');
 				})
 				.catch(() => {
 					alert('Votre compte existe déjà');
-					this.$router.push('http://localhost:8080/forum');
+					this.$router.push('http://localhost:8080');
 
 					console.error('Do that');
 					// .catch((erreur) => (this.posts = [{ id: 'erreur de chargement' }]));

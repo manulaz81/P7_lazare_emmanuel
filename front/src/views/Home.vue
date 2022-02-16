@@ -29,7 +29,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss">
 #photo_logo {
 	width: 110px;
 }

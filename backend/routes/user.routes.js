@@ -14,7 +14,7 @@ router.post('/signup',userControllers.signUp);
 router.post('/login',userControllers.login);
 
 //route pour mettre à jour son profil
-router.put('/:id',auth,multer, userControllers.modifyUser);
+router.put('/:id',multer, userControllers.modifyUser);
 
 //route pour supprimer son compte
 router.delete('/:id',auth, userControllers.deleteUser);
