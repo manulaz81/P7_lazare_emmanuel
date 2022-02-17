@@ -35,12 +35,38 @@
 						<div class="message_date">posté le {{ m.createdAt }}</div>
 						<input class="btn_supp" v-on:click="deleteMessage" type="checkbox" />supprimer le message
 					</div>
+
+					<div class="message_image">
+						<img id="photoMessage" src="../assets/1saucepimente.jpg" alt="photoMessage" style="width: 100%" />
+					</div>
 					<div class="message_group">{{ m.message }}</div>
+
+					<div class="message_barre"></div>
+
+					<div class="coeur">
+						<h1>Commentaires</h1>
+						<div class="comment_all">
+							<div class="comments">
+								<div class="photoComment">
+									<img id="photoUsercomment" src="../assets/1saucepimente.jpg" alt="photoProfil" style="width: 100%" />
+								</div>
+								<div class="comment_users1">
+									<div class="comment_users">Message de l'users{{}}</div>
+									<div class="postDate">date du post {{}}</div>
+								</div>
+							</div>
+
+							<input class="btn_supp" v-on:click="deleteCommentaire" type="checkbox" />supprimer le message
+						</div>
+						<p @click="increment">{{ total }} personnes aiment votre commentaire</p>
+						<p>{{ totalGeneral }}personnes aiment votre commentaire</p>
+						<p>{{ doubleDuTotal }} est la population multiplie par 2</p>
+					</div>
 				</div>
 			</div>
 
 			<form id="commentairePost" method="post" v-on:submit="sendComment">
-				<div class="commentaires">Les commentaires des gens : {{}}</div>
+				<div class="commentaires">Les commentaires des gens : {{ commentsUser }}</div>
 				<input class="btn_rep" placeholder="Votre commentaire..." v-model="comments" />
 				<button id="button_comments">envoi</button>
 			</form>
@@ -53,6 +79,15 @@
 import axios from 'axios';
 export default {
 	name: 'forumgroup',
+	computed: {
+		totalGeneral() {
+			return this.$store.state.totalFromVuex;
+		},
+		doubleDuTotal() {
+			return this.$store.getters.doubleDuTotal;
+		},
+	},
+
 	props: ['mess', 'chose'],
 	data() {
 		return {
@@ -61,17 +96,23 @@ export default {
 			commentaire: ' ',
 			allMessage: '',
 			comments: '',
+			commentsUser: '',
+			total: 0,
 		};
 	},
 
 	mounted() {
 		axios
-			.get('http://localhost:3000/api/messages')
+			.get('http://localhost:3000/api/messages/')
 			.then((response) => (this.allMessage = response.data))
 			.catch((error) => error);
 	},
 
 	methods: {
+		increment() {
+			this.total += 1;
+			this.$store.commit('setTotalFRomVuex', (this.totalGeneral += 1));
+		},
 		deleteMessage() {
 			axios
 				.delete('http://localhost:3000/api/messages', {})
@@ -91,22 +132,22 @@ export default {
 		sendMessage() {
 			// const userId = id ;
 			axios
-				.post('http://localhost:3000/api/messages' , {
+				.post('http://localhost:3000/api/messages', {
 					message: this.message,
 				})
 				.then((res) => {
 					console.log(res);
-					alert('Votre commentaire est parti!');
+					alert('Votre message est parti!');
 					this.$router.push('http://localhost:8080/forum');
 				})
 				.catch(() => {
-					alert('impossible');
+					alert('envoi impossible');
 					this.$router.push('http://localhost:8080/forum');
 				});
 		},
 		sendComment() {
 			axios
-				.post('http://localhost:3000/api/commantaires', {
+				.post('http://localhost:3000/api/commantaires/255', {
 					comments: this.comments,
 				})
 				.then((res) => {
@@ -207,9 +248,13 @@ export default {
 	text-align: right;
 	font-style: italic;
 }
-/* .message_group {
-	background-color: aliceblue;
-} */
+.message_barre {
+	width: 60%;
+	border-bottom: solid 3px black;
+	text-align: center;
+	margin-top: 10px;
+}
+
 .title {
 	color: grey;
 	font-size: 18px;
@@ -291,5 +336,37 @@ a:hover {
 	background: grey;
 
 	width: 50%;
+}
+
+#photoMessage {
+	width: 10%;
+	max-width: 150px;
+	max-height: 150px;
+	border: 1rem solid pink;
+	margin-right: 5px;
+}
+
+#photoUsercomment {
+	max-width: 50px;
+	max-height: 50px;
+	border: 5px solid black;
+	border-radius: 50px;
+}
+
+.comments {
+	display: flex;
+	align-items: center;
+	background: rgb(235, 231, 231);
+	width: 60%;
+}
+
+.comment_users1 {
+	margin-left: 10px;
+}
+
+.comment_all{
+display: flex;
+align-items: center;
+
 }
 </style>

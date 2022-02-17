@@ -24,7 +24,7 @@
 	width: 1050px;
 	color: black;
 	font-size: rem;
-	background-color: white;
+	background-color: rgb(246, 246, 246);
 	text-align: center;
 	border-radius: 10px;
   vertical-align: center;	

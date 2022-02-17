@@ -17,6 +17,10 @@
 
 <script>
 import axios from 'axios';
+// import VueLocalStorage from 'vue-localstorage'
+
+// Vue.use(VueLocalStorage)
+
 export default {
 	name: 'login',
 
@@ -27,35 +31,24 @@ export default {
 		};
 	},
 	methods: {
-		updatePost() {
-
-
+		updatePost(e) {
+			e.preventDefault();
+			const url = 'http://localhost:3000/api/login';
 			axios
-				.post('http://localhost:3000/api/login', {
+				.post(url, {
 					email: this.email,
 					password: this.password,
-				}, {
-                    headers:{ 'Content-type': 'application/json'}
-                }
-			)
+				})
 
-				.then((response) => console.log(response.data.accesToken)
-	// 			axios.defaults.headers.common['authorization'] = `Bearer ${response.data.accessToken}`;
-	// refreshToken = response.data.refreshToken;
-	// loadUserInfos()
-	
+				.then((response) => console.log(response))
+					this.$router.push('http://localhost:8080/forum');
+					alert('bonjour et bienvenue sur le forum!')
+				.catch(() => {
+					alert('Votre mot de passe et ou votre email sont incorrects');
 					// this.$router.push('http://localhost:8080/forum');
-					// alert('bonjour et bienvenue sur le forum!');
-				)
-			
-			.catch(() => {
-				alert('Votre mot de passe et ou votre email sont incorrects');
-				this.$router.push('http://localhost:8080/forum');
 
 				// .catch((erreur) => (this.posts = [{ id: 'erreur de chargement' }]));
 			});
-
-		
 		},
 	},
 };

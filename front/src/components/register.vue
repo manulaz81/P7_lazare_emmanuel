@@ -41,6 +41,7 @@ export default {
 
 	methods: {
 		updatePost() {
+			// e.preventDefault();
 			axios
 				.post('http://localhost:3000/api/auth/signUp', {
 					username: this.username,
@@ -51,11 +52,11 @@ export default {
 				.then((res) => {
 					console.log(res);
 					alert('Votre compte a bien été créé! Vous pouvez vous connecter maintenant!');
-					this.$router.push('http://localhost:8080');
+					// this.$router.push('http://localhost:8080/Home');
 				})
 				.catch(() => {
 					alert('Votre compte existe déjà');
-					this.$router.push('http://localhost:8080');
+					this.$router.push('http://localhost:8080/Home');
 
 					console.error('Do that');
 					// .catch((erreur) => (this.posts = [{ id: 'erreur de chargement' }]));

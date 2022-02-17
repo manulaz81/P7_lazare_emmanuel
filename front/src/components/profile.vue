@@ -51,11 +51,9 @@
 			</div>
 
 			<div class="validation">
-				
 				<button id="button_valid">Valider vos données</button>
-				
-				<button id="button__suppressioncompte" v-on:click="deleteCompte">Supprimer votre compte</button>
 
+				<button id="button__suppressioncompte" v-on:click="deleteCompte">Supprimer votre compte</button>
 			</div>
 		</form>
 	</div>
@@ -84,7 +82,7 @@ export default {
 			alert('etes vous sur de supprimer votre compte ?');
 
 			axios
-				.delete('http://localhost:3000/api/auth/19')
+				.delete('http://localhost:3000/api/auth/3')
 
 				.then((res) => {
 					console.log(res);
@@ -95,7 +93,6 @@ export default {
 					alert('Suppression impossible pour le moment');
 					this.$router.push('http://localhost:8080');
 
-					console.error('Do that');
 					// .catch((erreur) => (this.posts = [{ id: 'erreur de chargement' }]));
 				});
 		},
@@ -104,9 +101,7 @@ export default {
 			// je recupere la valeur des inputs mails, pseudo, bio
 
 			let newPseudo = document.getElementById('newPseudo').value;
-			console.log(newPseudo);
 			let newEmail = document.getElementById('newEmail').value;
-			console.log(newEmail);
 			let newBio = document.getElementById('newBio').value;
 			console.log(newBio);
 
@@ -115,19 +110,19 @@ export default {
 
 			// puis je la renvoi dans la base de données
 
-			axios.put('http://localhost:3000/api/auth/17', {
+			axios.put('http://localhost:3000/api/auth/3', {
 				email: newEmail,
 			});
 			axios
-				.put('http://localhost:3000/api/auth/17', {
+				.put('http://localhost:3000/api/auth/3', {
 					username: newPseudo,
 				})
 
-				.put('http://localhost:3000/api/auth/17', {
+				.put('http://localhost:3000/api/auth/3', {
 					bio: newBio,
 				});
 			axios
-				.put('http://localhost:3000/api/auth/17', {
+				.put('http://localhost:3000/api/auth/3', {
 					imageUrl: newImage,
 				})
 
@@ -147,13 +142,10 @@ export default {
 	},
 
 	mounted() {
-		axios.get('http://localhost:3000/api/auth/19').then((response) => (this.pseudo = response.data.username));
-
-		axios.get('http://localhost:3000/api/auth/19').then((response) => (this.email = response.data.email));
-
-		axios.get('http://localhost:3000/api/auth/19').then((response) => (this.bio = response.data.bio));
-
-		axios.get('http://localhost:3000/api/auth/19').then((response) => (this.imageProfil = response.data.imageUrl));
+		axios.get('http://localhost:3000/api/auth/3').then((response) => (this.pseudo = response.data.username));
+		axios.get('http://localhost:3000/api/auth/3').then((response) => (this.email = response.data.email));
+		axios.get('http://localhost:3000/api/auth/3').then((response) => (this.bio = response.data.bio));
+		axios.get('http://localhost:3000/api/auth/3').then((response) => (this.imageProfil = response.data.imageUrl));
 	},
 
 	computed: {
@@ -171,18 +163,18 @@ export default {
 #button__suppressioncompte {
 	margin-bottom: 50px;
 	width: 200px;
-height: 70px;
+	height: 70px;
 	border-radius: 15px;
 	background-color: rgb(238, 96, 96);
 	color: #000;
 }
-#registerProfil{
+#registerProfil {
 	display: none;
 }
 
 #button_valid {
 	margin-bottom: 50px;
-		margin-right: 20px;
+	margin-right: 20px;
 	width: 180px;
 	border-radius: 15px;
 }
@@ -194,7 +186,7 @@ height: 70px;
 }
 .validation {
 	width: 50%;
-	
+
 	margin: auto;
 	display: flex;
 	flex-wrap: wrap;

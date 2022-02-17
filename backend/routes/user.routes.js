@@ -1,7 +1,7 @@
 const express = require('express');
 
 const userControllers =  require ( '../controllers/usersController');
-const auth = require('../middleware/auth');
+// const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-config');
 
 const router =  express.Router();
@@ -17,13 +17,13 @@ router.post('/login',userControllers.login);
 router.put('/:id',multer, userControllers.modifyUser);
 
 //route pour supprimer son compte
-router.delete('/:id',auth, userControllers.deleteUser);
+router.delete('/:id', userControllers.deleteUser);
 
 // route pour avoir un utilisateur
-router.get('/:id',auth,userControllers.getOneUser);
+router.get('/:id',userControllers.getOneUser);
 
 // route pour avoir tout les utilisateurs
-router.get('/',auth,userControllers.getAllUsers);
+router.get('/',userControllers.getAllUsers);
 
 
 
