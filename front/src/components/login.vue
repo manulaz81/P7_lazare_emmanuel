@@ -1,25 +1,20 @@
 <template>
-	<form id="formulaire" action="http://localhost:8080/forum" method="post" novalidate="">
-		<p v-if="pseudo">Inscription</p>
-		<p v-else>Connectez vous avec vos identifiants</p>
-
-		<p><label for="email">Email</label></p>
-		<p><input id="email" type="email" name="email" placeholder="votre email" v-model="email" required /></p>
-
-		<p><label for="password">Password</label></p>
+	<form id="formulaire" method="post">
+		<p>Inscription</p>
+		<p>Connectez vous avec vos identifiants</p>
+		<p><label for="email2">Email</label></p>
+		<p><input id="email2" type="email" name="email" placeholder="votre email" v-model="email" required /></p>
+		<p><label for="password2">Password</label></p>
 		<p>
-			<input id="email" type="password" name="email" placeholder="votre mot de passe" v-model="password" required />
+			<input id="email2" type="password" name="email" placeholder="votre mot de passe" v-model="password" required />
 		</p>
 
-		<button id="button_inscrit" v-on:click="updatePost">Se connecter</button>
+		<button id="button_inscrit2" v-on:click="login2">Se connecter</button>
 	</form>
 </template>
 
 <script>
 import axios from 'axios';
-// import VueLocalStorage from 'vue-localstorage'
-
-// Vue.use(VueLocalStorage)
 
 export default {
 	name: 'login',
@@ -31,32 +26,34 @@ export default {
 		};
 	},
 	methods: {
-		updatePost(e) {
+		login2(e) {
 			e.preventDefault();
-			const url = 'http://localhost:3000/api/login';
 			axios
-				.post(url, {
+				.post('http://localhost:3000/api/auth/login', {
 					email: this.email,
 					password: this.password,
 				})
-
-				.then((response) => console.log(response))
-					this.$router.push('http://localhost:8080/forum');
-					alert('bonjour et bienvenue sur le forum!')
+				.then((res) => {
+					console.log(res.data);
+					localStorage.setItem('usertoken', res.data.token);
+					localStorage.setItem('userid', res.data.userId);
+					alert('bonjour et bienvenue sur le forum!');
+					this.$router.push('/forum');
+				})
 				.catch(() => {
 					alert('Votre mot de passe et ou votre email sont incorrects');
-					// this.$router.push('http://localhost:8080/forum');
-
-				// .catch((erreur) => (this.posts = [{ id: 'erreur de chargement' }]));
-			});
+					this.$router.push('/');
+				});
 		},
 	},
+
+	
 };
 </script>
 
 <style lang="scss">
 /*  */
-#button_inscrit {
+#button_inscrit2 {
 	background-color: pink;
 	width: 130px;
 	border-radius: 15px;

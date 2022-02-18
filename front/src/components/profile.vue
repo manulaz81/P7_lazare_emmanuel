@@ -93,7 +93,7 @@ export default {
 					alert('Suppression impossible pour le moment');
 					this.$router.push('http://localhost:8080');
 
-					// .catch((erreur) => (this.posts = [{ id: 'erreur de chargement' }]));
+				
 				});
 		},
 

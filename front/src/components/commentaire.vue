@@ -20,3 +20,14 @@ export default {
 </script>
 
 <style lang="scss"></style>
+// exports.create = (data) => {
+//     return db.connect(error => {
+//         if (error) throw error;
+//         return db.promise().query(
+//           `INSERT INTO ${TABLE} (user_id, post_id, content) VALUES (?, ?, ?)`,
+//           [data.userId, data.postId, data.content]
+//         )
+//             .then(response => response)
+//             .catch(error => { throw error });
+//     })
+// }

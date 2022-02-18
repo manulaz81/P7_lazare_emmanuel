@@ -45,14 +45,14 @@
 
 					<div class="coeur">
 						<h1>Commentaires</h1>
-						<div class="comment_all">
+						<div class="comment_all" >
 							<div class="comments">
 								<div class="photoComment">
 									<img id="photoUsercomment" src="../assets/1saucepimente.jpg" alt="photoProfil" style="width: 100%" />
 								</div>
 								<div class="comment_users1">
-									<div class="comment_users">Message de l'users{{}}</div>
-									<div class="postDate">date du post {{}}</div>
+									<div class="comment_users">Message de l'users: {{comments}}</div>
+									<div class="postDate">date du post {{createAt}}</div>
 								</div>
 							</div>
 
@@ -95,7 +95,7 @@ export default {
 			imageMessage: '',
 			commentaire: ' ',
 			allMessage: '',
-			comments: '',
+			comments: 'coucou',
 			commentsUser: '',
 			total: 0,
 		};

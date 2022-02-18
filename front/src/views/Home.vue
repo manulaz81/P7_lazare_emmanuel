@@ -3,7 +3,7 @@
 		<navigation />
 		<p>Bienvenue sur le réseau social de l'entreprise Groupomania</p>
 		<img id="photo_logo" alt="Vue logo" src="../assets/icon.png" />
-		<login />
+		<login/>
     
 	</div>
 </template>

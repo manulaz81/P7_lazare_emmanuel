@@ -19,9 +19,7 @@
 		<p><input id="name" type="text" name="name" placeholder="votre nom d'utilisateur" v-model="username" required /></p>
 
 		<button  id="button_inscrit">S'inscrire</button>
-	</form>
-
-	
+	</form>	
 </template>
 
 <script>
@@ -40,42 +38,41 @@ export default {
 	},
 
 	methods: {
-		updatePost() {
-			// e.preventDefault();
+		updatePost(e) {
+			e.preventDefault();
 			axios
 				.post('http://localhost:3000/api/auth/signUp', {
 					username: this.username,
 					email: this.email,
 					password: this.password,
 				})
-
 				.then((res) => {
 					console.log(res);
 					alert('Votre compte a bien été créé! Vous pouvez vous connecter maintenant!');
-					// this.$router.push('http://localhost:8080/Home');
+					this.$router.push('/');
 				})
 				.catch(() => {
+					//mettre une condition si ton compte existe alors je reste sur cette page
+					//sinon je vais sur la page Connexion
 					alert('Votre compte existe déjà');
-					this.$router.push('http://localhost:8080/Home');
-
-					console.error('Do that');
-					// .catch((erreur) => (this.posts = [{ id: 'erreur de chargement' }]));
+					this.$router.push('/');
 				});
 		},
 	},
-
-	// 	methods : {
-	// updatePost() {
-	// 					axios
-	// 						.get('http://localhost:3000/api/messages')
-	// 						.then((response) => (this.posts = response.data))
-
-	// 				},
-
-	// 	}
 };
 </script>
 
 <style lang="scss">
+
+#button_inscrit {
+	background-color: pink;
+	width: 130px;
+	border-radius: 15px;
+	height: 3rem;
+	color: white;
+	margin-top: 15px;
+	margin-bottom: 20px;
+}
+
 
 </style>
