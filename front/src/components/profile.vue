@@ -3,7 +3,7 @@
 		<p class="titreProfil">Votre profil</p>
 		<div class="partOne">
 			<div class="photoProfil">
-				<img id="photoProfil" src="../assets/1saucepimente.jpg" alt="photoProfil" style="width: 100%" />
+				<img id="photoProfil" src="../assets/photoprofil.png" alt="photoProfil" style="width: 100%" />
 			</div>
 			<div class="infoProfil">
 				<div class="emailProfil">
@@ -25,7 +25,7 @@
 		<!-- les modifications de profil -->
 		<button v-on:click="updateProfil">Mettre à jour son profil</button>
 
-		<form id="registerProfil" method="put" @submit="updatePost">
+		<form id="registerProfil" method="post">
 			<div class="changement">
 				<p class="modifProfil"><label for="email">Votre nouvel Email</label></p>
 				<p class="modifProfil2"><input id="newEmail" type="email" name="email" placeholder="votre email" /></p>
@@ -41,20 +41,20 @@
 					<input id="newPassword2" type="password" name="email" placeholder="votre nouveau mot de passe" />
 				</p>
 
-				<p class="modifProfil"><label for="password">Confirmez votre nouveau mot de passe</label></p>
+				<!-- <p class="modifProfil"><label for="password">Confirmez votre nouveau mot de passe</label></p>
 				<p class="modifProfil2">
 					<input id="newPassword" type="password" name="email" placeholder="votre nouveau mot de passe" />
-				</p>
+				</p> -->
 
 				<p class="modifProfil"><label for="password">Votre nouvelle photo de profil</label></p>
 				<p class="modifProfil2"><input id="newPhoto" type="file" name="email" /></p>
 			</div>
 
-			<div class="validation">
-				<button id="button_valid">Valider vos données</button>
+			<!-- <div class="validation"> -->
+			<button id="button_valid" v-on:click="updatePost">Valider vos données</button>
 
-				<button id="button__suppressioncompte" v-on:click="deleteCompte">Supprimer votre compte</button>
-			</div>
+			<!-- <button id="button__suppressioncompte" v-on:click="deleteCompte">Supprimer votre compte</button> -->
+			<!-- </div> -->
 		</form>
 	</div>
 </template>
@@ -68,7 +68,7 @@ export default {
 			pseudo: '',
 			email: ' ',
 			bio: '',
-			password: ' manu',
+			password: ' ',
 			imageProfil: '',
 		};
 	},
@@ -82,70 +82,60 @@ export default {
 			alert('etes vous sur de supprimer votre compte ?');
 
 			axios
-				.delete('http://localhost:3000/api/auth/3')
+				.delete('http://localhost:3000/api/auth/')
 
 				.then((res) => {
 					console.log(res);
 					alert('Votre compte a bien été supprimé!');
-					this.$router.push('http://localhost:8080/forum');
+					// faire une action de déconnection
+					this.$router.push('/');
 				})
 				.catch(() => {
 					alert('Suppression impossible pour le moment');
 					this.$router.push('http://localhost:8080');
-
-				
 				});
 		},
 
-		updatePost() {
+		updatePost(e) {
+			e.preventDefault();
 			// je recupere la valeur des inputs mails, pseudo, bio
-
-			let newPseudo = document.getElementById('newPseudo').value;
 			let newEmail = document.getElementById('newEmail').value;
+			console.log(newEmail);
+			let newPseudo = document.getElementById('newPseudo').value;
+			console.log(newPseudo);
 			let newBio = document.getElementById('newBio').value;
 			console.log(newBio);
-
+			let newPassword = document.getElementById('newPassword2').value;
 			let newImage = document.getElementById('newPhoto').value;
 			console.log(newImage);
 
 			// puis je la renvoi dans la base de données
-
-			axios.put('http://localhost:3000/api/auth/3', {
-				email: newEmail,
-			});
 			axios
-				.put('http://localhost:3000/api/auth/3', {
-					username: newPseudo,
-				})
-
-				.put('http://localhost:3000/api/auth/3', {
+				.put('http://localhost:3000/api/auth/2', {
+					email: newEmail,
+					password: newPassword,
 					bio: newBio,
-				});
-			axios
-				.put('http://localhost:3000/api/auth/3', {
-					imageUrl: newImage,
+
 				})
 
-				.then((res) => {
-					console.log(res);
-					alert('Votre profil a bien été mis à jour!');
-					this.$router.push('http://localhost:8080/forum');
+				.then((num) => {
+					console.log(num.data);
+					alert('Votre compte a bien été mis a jour!');
+					// faire une action de déconnection
+					this.$router.push('/forum');
 				})
 				.catch(() => {
-					alert('mis à jour incorrect');
+					alert('mise à jour impossible pour le moment');
 					this.$router.push('http://localhost:8080');
-
-					console.error('Do that');
-					// .catch((erreur) => (this.posts = [{ id: 'erreur de chargement' }]));
 				});
 		},
 	},
 
 	mounted() {
-		axios.get('http://localhost:3000/api/auth/3').then((response) => (this.pseudo = response.data.username));
-		axios.get('http://localhost:3000/api/auth/3').then((response) => (this.email = response.data.email));
-		axios.get('http://localhost:3000/api/auth/3').then((response) => (this.bio = response.data.bio));
-		axios.get('http://localhost:3000/api/auth/3').then((response) => (this.imageProfil = response.data.imageUrl));
+		axios.get('http://localhost:3000/api/auth/2').then((response) => (this.pseudo = response.data.username));
+		axios.get('http://localhost:3000/api/auth/2').then((response) => (this.email = response.data.email));
+		axios.get('http://localhost:3000/api/auth/2').then((response) => (this.bio = response.data.bio));
+		axios.get('http://localhost:3000/api/auth/2').then((response) => (this.imageProfil = response.data.imageUrl));
 	},
 
 	computed: {
