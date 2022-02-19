@@ -3,7 +3,7 @@
 		<p class="titreProfil">Votre profil</p>
 		<div class="partOne">
 			<div class="photoProfil">
-				<img id="photoProfil" src="../assets/photop.jpg" alt="photoProfil" style="width: 100%" />
+				<img id="photoProfil" src="../assets/images2.jpg" alt="photoProfil" style="width: 100%" />
 			</div>
 			<div class="infoProfil">
 				<div class="emailProfil">
