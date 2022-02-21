@@ -17,7 +17,9 @@ export default {
             
 			axios
 				.get('http://localhost:3000/api/auth/logout')
-				.then(() => removeCookie('jwt'))
+				.then(() => removeCookie('jwt')
+				
+				)
 				.catch((error) => error);
 		},
 	},

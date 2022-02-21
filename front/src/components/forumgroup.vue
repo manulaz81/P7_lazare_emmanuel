@@ -1,6 +1,4 @@
 <template>
-
-
 	<div class="forumgroup">
 		<form id="registerForum" method="post" v-on:submit="sendMessage" enctype="multipart/form-data">
 			<div class="message_perso">
@@ -91,7 +89,6 @@
 	</div>
 </template>
 <script>
-
 import axios from 'axios';
 export default {
 	name: 'forumgroup',
@@ -132,8 +129,19 @@ export default {
 			this.$store.commit('setTotalFRomVuex', (this.totalGeneral += 1));
 		},
 		deleteMessage() {
+			const token = localStorage.getItem('usertoken');
+			const userId = parseInt(localStorage.getItem('userId'));
+
+			let fd = new FormData();
+			fd.append('userId', userId);
+
 			axios
-				.delete('http://localhost:3000/api/messages', {})
+				.delete('http://localhost:3000/api/messages/168', fd, {
+					headers: {
+						'Content-Type': 'multipart/form-data',
+						Authorization: `Bearer ${token}`,
+					},
+				})
 				.then((res) => {
 					console.log(res);
 					alert('Etes vous sur de supprimé le message?');
@@ -142,12 +150,12 @@ export default {
 				.catch(() => {
 					alert('vous n êtes pas à l origine de la publication vous ne pouvez pas supprimer le message');
 					this.$router.push('http://localhost:8080/forum');
-
+					document.location.reload();
 					console.error('Do that');
 				});
 		},
 		changeImage(event) {
-this.selectedFile = event.target.files[0];
+			this.selectedFile = event.target.files[0];
 			// const file = event.target.files[0];
 			// this.selectedFile = URL.createObjectURL(file);
 			console.log(event);
@@ -156,18 +164,24 @@ this.selectedFile = event.target.files[0];
 			e.preventDefault();
 
 			// let imageUrl = document.getElementById('newPhoto').files;
+			const token = localStorage.getItem('usertoken');
+			const userId = parseInt(localStorage.getItem('userId'));
+
 			let fd = new FormData();
+			fd.append('userId', userId);
 			fd.append('message', this.message);
 			fd.append('image', this.selectedFile);
 
 			// const userId = id ;
 			axios
 				.post(
-					'http://localhost:3000/api/messages', fd,
-					
+					'http://localhost:3000/api/messages',
+					fd,
+
 					{
 						headers: {
 							'Content-Type': 'multipart/form-data',
+							Authorization: `Bearer ${token}`,
 						},
 					},
 				)

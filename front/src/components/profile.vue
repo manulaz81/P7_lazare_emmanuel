@@ -36,10 +36,10 @@
 				<p class="modifProfil"><label for="name">Votre nouvelle bio</label></p>
 				<p class="modifProfil2"><input id="newBio" type="text" name="name" placeholder="votre bio" /></p>
 
-				<!-- <p class="modifProfil"><label for="password2">Votre nouveau mot de passe</label></p>
+				<p class="modifProfil"><label for="password2">Votre nouveau mot de passe</label></p>
 				<p class="modifProfil2">
 					<input id="newPassword2" type="password" name="email" placeholder="votre nouveau mot de passe" />
-				</p> -->
+				</p>
 
 				<!-- <p class="modifProfil"><label for="password">Confirmez votre nouveau mot de passe</label></p>
 				<p class="modifProfil2">
@@ -53,9 +53,9 @@
 			<!-- <div class="validation"> -->
 			<button id="button_valid" v-on:click="updatePost">Valider vos données</button>
 
-			<!-- <button id="button__suppressioncompte" v-on:click="deleteCompte">Supprimer votre compte</button> -->
 			<!-- </div> -->
 		</form>
+		<button id="button__suppressioncompte" v-on:click="deleteCompte">Supprimer votre compte</button>
 	</div>
 </template>
 <script>
@@ -70,6 +70,8 @@ export default {
 			bio: '',
 			password: ' ',
 			imageProfil: '',
+			userId: localStorage.getItem('userId'),
+			token: localStorage.getItem('usertoken'),
 		};
 	},
 	methods: {
@@ -79,20 +81,26 @@ export default {
 		},
 
 		deleteCompte() {
-			alert('etes vous sur de supprimer votre compte ?');
-
+			alert('votre compte est va etre supprimer ! ');
+			const id = localStorage.getItem('userid');
+			const token = localStorage.getItem('usertoken');
 			axios
-				.delete('http://localhost:3000/api/auth/')
+				.delete('http://localhost:3000/api/auth/' + id, {
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${token}`,
+					},
+				})
 
 				.then((res) => {
 					console.log(res);
-					alert('Votre compte a bien été supprimé!');
-					// faire une action de déconnection
+					alert('Votre compte a bien été supprimé!, Veuillez vous réinscrire si vous souhaitez entrer dans le forum !');
+					localStorage.clear();
 					this.$router.push('/');
 				})
 				.catch(() => {
 					alert('Suppression impossible pour le moment');
-					this.$router.push('http://localhost:8080');
+					this.$router.push('/profile');
 				});
 		},
 
@@ -100,22 +108,30 @@ export default {
 			e.preventDefault();
 			// je recupere la valeur des inputs mails, pseudo, bio
 			let newEmail = document.getElementById('newEmail').value;
-			console.log(newEmail);
 			let newPseudo = document.getElementById('newPseudo').value;
-			console.log(newPseudo);
 			let newBio = document.getElementById('newBio').value;
-			console.log(newBio);
-			let newPassword = document.getElementById('newPassword2').value;
-			let newImage = document.getElementById('newPhoto').value;
-			console.log(newImage);
+let newPassword2 = document.getElementById('newPassword2').value;
+			const token = localStorage.getItem('usertoken');
+			const id = localStorage.getItem('userid');
 
 			// puis je la renvoi dans la base de données
 			axios
-				.put('http://localhost:3000/api/auth/2', {
-					email: newEmail,
-					password: newPassword,
-					bio: newBio,
-				})
+				.put(
+					'http://localhost:3000/api/auth/'+id,
+					
+						{						email: newEmail,
+							username: newPseudo,
+							bio: newBio,
+							password : newPassword2},
+					
+					
+					{
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${token}`,
+					},
+				},
+				)
 
 				.then((num) => {
 					console.log(num.data);
@@ -125,16 +141,19 @@ export default {
 				})
 				.catch(() => {
 					alert('mise à jour impossible pour le moment');
-					this.$router.push('http://localhost:8080');
+					this.$router.push('/profile');
 				});
 		},
 	},
 
 	mounted() {
-		axios.get('http://localhost:3000/api/auth/2').then((response) => (this.pseudo = response.data.username));
-		axios.get('http://localhost:3000/api/auth/2').then((response) => (this.email = response.data.email));
-		axios.get('http://localhost:3000/api/auth/2').then((response) => (this.bio = response.data.bio));
-		axios.get('http://localhost:3000/api/auth/2').then((response) => (this.imageProfil = response.data.imageUrl));
+		const id = localStorage.getItem('userid');
+		console.log(id);
+
+		axios.get('http://localhost:3000/api/auth/' + id).then((response) => (this.pseudo = response.data.username));
+		axios.get('http://localhost:3000/api/auth/+' + id).then((response) => (this.email = response.data.email));
+		axios.get('http://localhost:3000/api/auth/' + id).then((response) => (this.bio = response.data.bio));
+		axios.get('http://localhost:3000/api/auth/' + id).then((response) => (this.imageProfil = response.data.imageUrl));
 	},
 
 	computed: {
