@@ -36,18 +36,18 @@
 				<p class="modifProfil"><label for="name">Votre nouvelle bio</label></p>
 				<p class="modifProfil2"><input id="newBio" type="text" name="name" placeholder="votre bio" /></p>
 
-				<p class="modifProfil"><label for="password2">Votre nouveau mot de passe</label></p>
+				<!-- <p class="modifProfil"><label for="password2">Votre nouveau mot de passe</label></p>
 				<p class="modifProfil2">
 					<input id="newPassword2" type="password" name="email" placeholder="votre nouveau mot de passe" />
-				</p>
+				</p> -->
 
 				<!-- <p class="modifProfil"><label for="password">Confirmez votre nouveau mot de passe</label></p>
 				<p class="modifProfil2">
 					<input id="newPassword" type="password" name="email" placeholder="votre nouveau mot de passe" />
 				</p> -->
 
-				<p class="modifProfil"><label for="password">Votre nouvelle photo de profil</label></p>
-				<p class="modifProfil2"><input id="newPhoto" type="file" name="email" /></p>
+				<!-- <p class="modifProfil"><label for="password">Votre nouvelle photo de profil</label></p>
+				<p class="modifProfil2"><input id="newPhoto" type="file" name="email" /></p> -->
 			</div>
 
 			<!-- <div class="validation"> -->

@@ -5,19 +5,29 @@ const db = require('../models');
 const Message = db.messages;
 
 exports.postMessage = (req, res, next) => {
-	Message.create({
+	const article = {
+		message: req.body.message,
+		userId: req.body.userId,
+		imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+	};
+	Message.create(article)
 		// id: req.body.id,
 		// idMessage: req.body.idMessage,
 		// userId: req.body.userId,
 		// like: req.body.like,
 		// created: req.body.created,
 		// fk_message_users: req.body.fk_message_users,
-		message: req.body.message,
-		imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-	})
-		.then(() => {
-			res.send({ message: 'Le message est bien posté !' });
+		// 	message: req.body.message,
+
+		// 	imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+		// })
+		.then((article) => {
+			res.send(article);
 		})
+
+		// .then(() => {
+		// 	res.send({ message: 'Le message est bien posté !' });
+		// })
 		.catch((err) => {
 			res.status(500).send({ message: err.message });
 		});
@@ -30,39 +40,39 @@ exports.oneMessage = (req, res, next) => {
 		.catch((error) => res.status(404).json({ error }));
 };
 
-exports.modifyMessage = (req, res, next) => {
-	const id = req.params.fk_message_users;
-	const modification = req.file
-		? {
-				message: req.body.message,
-				//   userId: req.body.userId,
-				  imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-		  }
-		: {
-				message: req.body.message,
-		  };
-	//   userId: req.body.userId,}
+// exports.modifyMessage = (req, res, next) => {
+// 	const id = req.params.fk_message_users;
+// 	const modification = req.file
+// 		? {
+// 				message: req.body.message,
+// 				//   userId: req.body.userId,
+// 				  imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+// 		  }
+// 		: {
+// 				message: req.body.message,
+// 		  };
+//   userId: req.body.userId,}
 
-	Message.update(modification, {
-		where: { fk_message_users: id },
-	})
-		.then((num) => {
-			if (num == 1) {
-				res.send({
-					message: "L'article est modifié",
-				});
-			} else {
-				res.send({
-					message: `Impossible de mettre à jour l'article avec l'id=${id}.`,
-				});
-			}
-		})
-		.catch((err) => {
-			res.status(500).send({
-				message: "erreur lors de la mise à jour de l'article avec l'id=" + id,
-			});
-		});
-};
+// 	Message.update(modification, {
+// 		where: { fk_message_users: id },
+// 	})
+// 		.then((num) => {
+// 			if (num == 1) {
+// 				res.send({
+// 					message: "L'article est modifié",
+// 				});
+// 			} else {
+// 				res.send({
+// 					message: `Impossible de mettre à jour l'article avec l'id=${id}.`,
+// 				});
+// 			}
+// 		})
+// 		.catch((err) => {
+// 			res.status(500).send({
+// 				message: "erreur lors de la mise à jour de l'article avec l'id=" + id,
+// 			});
+// 		});
+// };
 
 // voir tout les messages
 exports.allMessage = (req, res, next) => {

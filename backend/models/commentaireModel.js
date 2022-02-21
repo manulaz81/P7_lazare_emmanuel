@@ -1,20 +1,20 @@
 module.exports = (sequelize, DataTypes) => {
-	const Commentary = sequelize.define( 'commentaire', {
-			
-        idcommentaires: {
+	const Commentary = sequelize.define(
+		'commentaire',
+		{
+			idcommentaires: {
 				type: DataTypes.INTEGER,
-                
 			},
 			comments: {
 				type: DataTypes.TEXT,
 			},
-			
+
 			userId: {
 				type: DataTypes.TEXT,
 			},
-            imageUrl :{
-                type:DataTypes.TEXT
-            },
+			imageUrl: {
+				type: DataTypes.TEXT,
+			},
 
 			likes: {
 				type: DataTypes.TEXT,
@@ -23,11 +23,10 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.TEXT,
 			},
 
-
-            id: {
-               primaryKey: true,
-                type: DataTypes.INTEGER
-            },
+			id: {
+				primaryKey: true,
+				type: DataTypes.INTEGER,
+			},
 		},
 		{
 			timestamps: true,
