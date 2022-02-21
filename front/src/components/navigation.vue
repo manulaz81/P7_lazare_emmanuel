@@ -5,7 +5,7 @@
     <router-link to="/about">S'incrire</router-link> |
     <router-link to="/profile">Profil</router-link> |
     <router-link to="/forum">Forum</router-link> |   
-   <router-link to="/forum">Logout</router-link> 
+   <!-- <router-link to="/forum">Logout</router-link>  -->
   <router-view/>
 
   

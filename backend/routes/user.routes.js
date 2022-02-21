@@ -25,6 +25,9 @@ router.get('/:id',userControllers.getOneUser);
 // route pour avoir tout les utilisateurs
 router.get('/',userControllers.getAllUsers);
 
+//route pour se deconnecter
+router.get('/logout',userControllers.logout);
+
 
 
 

@@ -48,10 +48,11 @@ exports.login = (req, res, next) => {
 		.catch((error) => res.status(500).json({ error }));
 };
 
-
-//logout
-
-
+//logout se déconnecter
+exports.logout = (req, res, next) => {
+	res.cookie('jwt', '', { maxAge: 1 });
+	res.redirect('/');
+};
 
 // Supprimer le compte d'utilisateur
 

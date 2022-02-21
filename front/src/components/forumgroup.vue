@@ -1,4 +1,6 @@
 <template>
+
+
 	<div class="forumgroup">
 		<form id="registerForum" method="post" v-on:submit="sendMessage" enctype="multipart/form-data">
 			<div class="message_perso">
@@ -8,6 +10,7 @@
 						id="newMessageforum"
 						type="text"
 						name="email"
+						aria-label="Contenu du message"
 						placeholder="Laisser votre message ..."
 						v-model="message"
 					/>
@@ -16,10 +19,17 @@
 					<div>
 						<p><label for="image"></label></p>
 						<p>
-							<input id="newPhoto" type="file" name="file" accept="image/jpeg, image/png" v-on:change="changeImage" />
+							<input
+								id="newPhoto"
+								type="file"
+								name="file"
+								accept="image/jpeg, image/png"
+								aria-label="Fichier à sélectionner"
+								v-on:change="changeImage"
+							/>
 						</p>
 					</div>
-					<img id="phot" :src="selectedFile" class="phot" />
+					<!-- <img id="phot" :src="selectedFile" class="phot" /> -->
 					<!-- <div>{{mess}}</div> -->
 					<button id="button_valid">Publier</button>
 				</div>
@@ -81,6 +91,7 @@
 	</div>
 </template>
 <script>
+
 import axios from 'axios';
 export default {
 	name: 'forumgroup',
@@ -136,8 +147,9 @@ export default {
 				});
 		},
 		changeImage(event) {
-			const file = event.target.files[0];
-			this.selectedFile = URL.createObjectURL(file);
+this.selectedFile = event.target.files[0];
+			// const file = event.target.files[0];
+			// this.selectedFile = URL.createObjectURL(file);
 			console.log(event);
 		},
 		sendMessage(e) {
@@ -145,23 +157,28 @@ export default {
 
 			// let imageUrl = document.getElementById('newPhoto').files;
 			let fd = new FormData();
-			fd.append('image', this.selectedFile);
 			fd.append('message', this.message);
+			fd.append('image', this.selectedFile);
 
 			// const userId = id ;
 			axios
-				.post('http://localhost:3000/api/messages', fd, {
-					headers: {
-						'Content-Type': 'multipart/form-data',
+				.post(
+					'http://localhost:3000/api/messages', fd,
+					
+					{
+						headers: {
+							'Content-Type': 'multipart/form-data',
+						},
 					},
-				})
+				)
 				.then((res) => {
 					console.log(res);
 					alert('Votre message est parti!');
+					document.location.reload();
 					this.$router.push('/forum');
 				})
 				.catch(() => {
-					alert('envoi impossible');
+					alert('envoi impossible, ton message ne passe pas');
 					this.$router.push('/forum');
 				});
 		},

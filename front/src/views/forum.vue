@@ -3,6 +3,7 @@
 
   <div id="forum">
      <navigation/>
+      <logout/>
     <forumgroup mess="bisous les enfants"/>
    <commentaire/>
     
@@ -14,14 +15,14 @@
 import navigation from '@/components/navigation.vue'
 import forumgroup from '@/components/forumgroup.vue'
 import commentaire from '@/components/commentaire.vue'
-
+import logout from '@/components/logout.vue'
 
 
 
 export default {
   name: '#forum',
   components: {
-    forumgroup,commentaire,navigation
+    forumgroup,commentaire,navigation,logout
   }
 }
 </script>
