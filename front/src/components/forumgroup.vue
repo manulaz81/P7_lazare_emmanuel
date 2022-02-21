@@ -15,21 +15,16 @@
 				<div class="fichierJoint">
 					<div>
 						<p><label for="image"></label></p>
-						<p><input id="newPhoto" type="file" name="file" v-on:change="changeImage"/></p>
+						<p>
+							<input id="newPhoto" type="file" name="file" accept="image/jpeg, image/png" v-on:change="changeImage" />
+						</p>
 					</div>
+					<img id="phot" :src="selectedFile" class="phot" />
 					<!-- <div>{{mess}}</div> -->
-
 					<button id="button_valid">Publier</button>
 				</div>
 			</div>
 		</form>
-		<div id="main">
-			<input type="file" name="picture" id="picture" />
-			<!-- Input text lié à une variable de vuejs pour le texte alternatif de l'image -->
-			<input type="text" name="alt-picture" id="" placeholder="alt text" v-model="alt_text" />
-			<!-- Le bouton d'envoi lié à une fonction d'envoi -->
-			<button v-on:submit="sendMessage">Envoyer</button>
-		</div>
 
 		<div class="message_Group" v-for="m in allMessage" :key="m.allMessage">
 			<div class="message_group1">
@@ -44,14 +39,17 @@
 					</div>
 
 					<div class="message_image">
-						<img id="photoMessage" src="../assets/photop.jpg" alt="photoMessage" style="width: 100%" />
+						<!-- <img id="photoMessage" :src="imageg" alt="photoMessage" style="width: 100%" /> -->
+
+						<img id="photoMessage" :src="m.imageUrl" class="phot" />
 					</div>
-					<div class="imageUsers">{{ imageMessage }}</div>
+					<!-- <div class="imageUsers" v-if="selectedFile">{{ selectedFile.name }}</div>
+					<div class="imageUsers" v-if="selectedFile">{{ selectedFile }}</div> -->
 					<div class="message_group">{{ m.message }}</div>
 					<div class="message_barre"></div>
 
 					<!-- <div class="coeur"> -->
-						<!-- <h1>Commentaires</h1>
+					<!-- <h1>Commentaires</h1>
 						<div class="comment_all">
 							<div class="comments">
 								<div class="photoComment">
@@ -65,7 +63,7 @@
 
 							<input class="btn_supp" v-on:click="deleteCommentaire" type="checkbox" />supprimer le message
 						</div> -->
-						<!-- <p @click="increment">{{ total }} personnes aiment votre commentaire</p>
+					<!-- <p @click="increment">{{ total }} personnes aiment votre commentaire</p>
 						<p>{{ totalGeneral }}personnes aiment votre commentaire</p>
 						<p>{{ doubleDuTotal }} est la population multiplie par 2</p> -->
 					<!-- </div> -->
@@ -99,7 +97,8 @@ export default {
 	data() {
 		return {
 			message: '',
-			imageMessage: 'null',
+			selectedFile: null,
+			imageUser: '',
 			commentaire: ' ',
 			allMessage: '',
 			comments: 'coucou',
@@ -112,14 +111,11 @@ export default {
 	mounted() {
 		axios
 			.get('http://localhost:3000/api/messages/')
-			.then((response) =>(this.allMessage = response.data))
+			.then((response) => (this.allMessage = response.data))
 			.catch((error) => error);
 	},
 
 	methods: {
-
-
-
 		increment() {
 			this.total += 1;
 			this.$store.commit('setTotalFRomVuex', (this.totalGeneral += 1));
@@ -139,21 +135,26 @@ export default {
 					console.error('Do that');
 				});
 		},
-changeImage(event){
-	this.imageMessage = event.target.files[0]
-	console.log(event)
-},
+		changeImage(event) {
+			const file = event.target.files[0];
+			this.selectedFile = URL.createObjectURL(file);
+			console.log(event);
+		},
 		sendMessage(e) {
 			e.preventDefault();
 
 			// let imageUrl = document.getElementById('newPhoto').files;
 			let fd = new FormData();
-			fd.append('image', this.imageMessage,this.imageMessage.name );
+			fd.append('image', this.selectedFile);
 			fd.append('message', this.message);
 
 			// const userId = id ;
 			axios
-				.post('http://localhost:3000/api/messages', fd)
+				.post('http://localhost:3000/api/messages', fd, {
+					headers: {
+						'Content-Type': 'multipart/form-data',
+					},
+				})
 				.then((res) => {
 					console.log(res);
 					alert('Votre message est parti!');
