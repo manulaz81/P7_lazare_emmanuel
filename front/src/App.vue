@@ -22,6 +22,7 @@
 	margin: auto;
 	margin-top: 30px;
 	width: 1050px;
+	max-width: 1150px;
 	color: black;
 	font-size: rem;
 	background-color: rgb(246, 246, 246);
@@ -29,20 +30,17 @@
 	border-radius: 10px;
   vertical-align: center;	
 	min-width: 370px;
+};
+@media screen and (min-width: 768px) and (max-width: 1024px){
+
+
 }
 
 
-// #nav {
-//   padding: 10px;
-//   margin: auto;
+@media screen and (max-width: 767px){
 
-//   a {
-//     font-weight: bold;
-//     color: #2c3e50;
 
-//     &.router-link-exact-active {
-//       color: #dda3d0;
-//     }
-//   }
-// }
+}
+
+
 </style>

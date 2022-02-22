@@ -1,26 +1,18 @@
 <template>
-	<li v-on:click="logoutplus">logout</li>
+	<li v-on:click="logout2">logout</li>
 </template>
 
 <script>
-import axios from 'axios';
-import cookie from "js-cookie";
+// import axios from 'axios';
+// import cookie from "js-cookie";
 
 export default {
 	name: 'logout',
 
 	methods: {
-		logoutplus() {
-            const removeCookie = function(key){
-                cookie.remove(key,{ expires:1})
-            }
-            
-			axios
-				.get('http://localhost:3000/api/auth/logout')
-				.then(() => removeCookie('jwt')
-				
-				)
-				.catch((error) => error);
+		logout2() {
+			localStorage.clear();
+            this.$router.push('/');
 		},
 	},
 };

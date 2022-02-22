@@ -73,8 +73,8 @@
 							<input class="btn_supp" v-on:click="deleteCommentaire" type="checkbox" />supprimer le message
 						</div>
 						<p @click="increment">{{ total }} personnes aiment votre commentaire</p>
-						<p>{{ totalGeneral }}personnes aiment votre commentaire</p>
-						<p>{{ doubleDuTotal }} est la population multiplie par 2</p>
+						<!-- <p>{{ totalGeneral }}personnes aiment votre commentaire</p>
+						<p>{{ doubleDuTotal }} est la population multiplie par 2</p> -->
 					</div>
 				</div>
 			</div>

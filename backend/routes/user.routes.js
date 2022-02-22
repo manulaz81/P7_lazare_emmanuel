@@ -25,6 +25,6 @@ router.get('/:id',auth, userControllers.getOneUser);
 router.get('/',auth, userControllers.getAllUsers);
 
 //route pour se deconnecter
-router.get('/logout',auth, userControllers.logout);
+router.get('/logout', userControllers.logout);
 
 module.exports = router;

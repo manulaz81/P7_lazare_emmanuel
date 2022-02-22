@@ -50,8 +50,12 @@ exports.login = (req, res, next) => {
 
 //logout se déconnecter
 exports.logout = (req, res, next) => {
-	res.cookie('jwt', '', { maxAge: 1 });
-	res.redirect('/');
+	User.update({
+        userId: req.body.userId,
+        updatedAt: Date.now()
+    })
+        .then(() => res.status(200).json({ message: "Utilisateur deconnecté"}))
+        .catch(error => { throw error })
 };
 
 // Supprimer le compte d'utilisateur

@@ -1,7 +1,7 @@
 <template>
 	<div class="Home">
 		<navigation />
-		<p>Bienvenue sur le réseau social de l'entreprise Groupomania</p>
+		<h1>Bienvenue sur le réseau social de l'entreprise Groupomania</h1>
 		<img id="photo_logo" alt="Vue logo" src="../assets/icon.png" />
 		<login/>
     
