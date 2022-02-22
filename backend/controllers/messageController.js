@@ -7,7 +7,8 @@ const Message = db.messages;
 exports.postMessage = (req, res, next) => {
 	const article = {
 		message: req.body.message,
-		userId: req.body.userId,
+		usersId: req.body.userId,
+		fk_message_users : req.body.fk_message_users,
 		imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
 	};
 	Message.create(article)

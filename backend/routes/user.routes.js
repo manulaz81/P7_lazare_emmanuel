@@ -19,7 +19,7 @@ router.put('/:id',auth, multer, userControllers.modifyUser);
 router.delete('/:id',auth, userControllers.deleteUser);
 
 // route pour avoir un utilisateur
-router.get('/:id', userControllers.getOneUser);
+router.get('/:id',auth, userControllers.getOneUser);
 
 // route pour avoir tout les utilisateurs
 router.get('/',auth, userControllers.getAllUsers);

@@ -27,8 +27,8 @@
 
 		<form id="registerProfil" method="post">
 			<div class="changement">
-				<p class="modifProfil"><label for="email">Votre nouvel Email</label></p>
-				<p class="modifProfil2"><input id="newEmail" type="email" name="email" placeholder="votre email" /></p>
+				<!-- <p class="modifProfil"><label for="email">Votre nouvel Email</label></p>
+				<p class="modifProfil2"><input id="newEmail" type="email" name="email" placeholder="votre email" /></p> -->
 
 				<p class="modifProfil"><label for="pseudo">Votre nouveau pseudo</label></p>
 				<p class="modifProfil2"><input id="newPseudo" type="text" name="email" placeholder="votre nouveau pseudo" /></p>
@@ -110,27 +110,23 @@ export default {
 			let newEmail = document.getElementById('newEmail').value;
 			let newPseudo = document.getElementById('newPseudo').value;
 			let newBio = document.getElementById('newBio').value;
-let newPassword2 = document.getElementById('newPassword2').value;
+			let newPassword2 = document.getElementById('newPassword2').value;
 			const token = localStorage.getItem('usertoken');
 			const id = localStorage.getItem('userid');
 
 			// puis je la renvoi dans la base de données
 			axios
 				.put(
-					'http://localhost:3000/api/auth/'+id,
-					
-						{						email: newEmail,
-							username: newPseudo,
-							bio: newBio,
-							password : newPassword2},
-					
-					
+					'http://localhost:3000/api/auth/' + id,
+
+					{ email: newEmail, username: newPseudo, bio: newBio, password: newPassword2 },
+
 					{
-					headers: {
-						'Content-Type': 'application/json',
-						Authorization: `Bearer ${token}`,
+						headers: {
+							'Content-Type': 'application/json',
+							Authorization: `Bearer ${token}`,
+						},
 					},
-				},
 				)
 
 				.then((num) => {
@@ -148,12 +144,20 @@ let newPassword2 = document.getElementById('newPassword2').value;
 
 	mounted() {
 		const id = localStorage.getItem('userid');
-		console.log(id);
+		const token = localStorage.getItem('usertoken');		
 
-		axios.get('http://localhost:3000/api/auth/' + id).then((response) => (this.pseudo = response.data.username));
-		axios.get('http://localhost:3000/api/auth/+' + id).then((response) => (this.email = response.data.email));
-		axios.get('http://localhost:3000/api/auth/' + id).then((response) => (this.bio = response.data.bio));
-		axios.get('http://localhost:3000/api/auth/' + id).then((response) => (this.imageProfil = response.data.imageUrl));
+		axios
+			.get('http://localhost:3000/api/auth/' + id, {
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then(
+				(response) => (
+					(this.pseudo = response.data.username), (this.email = response.data.email), (this.bio = response.data.bio)
+				),
+			);
 	},
 
 	computed: {

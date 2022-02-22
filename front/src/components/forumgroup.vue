@@ -56,8 +56,9 @@
 					<div class="message_group">{{ m.message }}</div>
 					<div class="message_barre"></div>
 
-					<!-- <div class="coeur"> -->
-					<!-- <h1>Commentaires</h1>
+					<div class="coeur">
+						-->
+						<h1>Commentaires</h1>
 						<div class="comment_all">
 							<div class="comments">
 								<div class="photoComment">
@@ -70,19 +71,19 @@
 							</div>
 
 							<input class="btn_supp" v-on:click="deleteCommentaire" type="checkbox" />supprimer le message
-						</div> -->
-					<!-- <p @click="increment">{{ total }} personnes aiment votre commentaire</p>
+						</div>
+						<p @click="increment">{{ total }} personnes aiment votre commentaire</p>
 						<p>{{ totalGeneral }}personnes aiment votre commentaire</p>
-						<p>{{ doubleDuTotal }} est la population multiplie par 2</p> -->
-					<!-- </div> -->
+						<p>{{ doubleDuTotal }} est la population multiplie par 2</p>
+					</div>
 				</div>
 			</div>
 
-			<!-- <form id="commentairePost" method="post" v-on:submit="sendComment">
+			<form id="commentairePost" method="post" v-on:submit="sendComment">
 				<div class="commentaires">Les commentaires des gens : {{ commentsUser }}</div>
 				<input class="btn_rep" placeholder="Votre commentaire..." v-model="comments" />
 				<button id="button_comments">envoi</button>
-			</form> -->
+			</form>
 		</div>
 
 		<!-- les modifications de profil -->
@@ -109,16 +110,22 @@ export default {
 			imageUser: '',
 			commentaire: ' ',
 			allMessage: '',
-			comments: 'coucou',
+			comments: '',
 			commentsUser: '',
-
+			cleetranger: '30',
 			total: 0,
 		};
 	},
 
 	mounted() {
+		const token = localStorage.getItem('usertoken');
 		axios
-			.get('http://localhost:3000/api/messages/')
+			.get('http://localhost:3000/api/messages/', {
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${token}`,
+				},
+			})
 			.then((response) => (this.allMessage = response.data))
 			.catch((error) => error);
 	},
@@ -136,7 +143,7 @@ export default {
 			fd.append('userId', userId);
 
 			axios
-				.delete('http://localhost:3000/api/messages/168', fd, {
+				.delete('http://localhost:3000/api/messages/', fd, {
 					headers: {
 						'Content-Type': 'multipart/form-data',
 						Authorization: `Bearer ${token}`,
@@ -144,7 +151,7 @@ export default {
 				})
 				.then((res) => {
 					console.log(res);
-					alert('Etes vous sur de supprimé le message?');
+					alert('Le message est supprimé');
 					this.$router.push('http://localhost:8080/forum');
 				})
 				.catch(() => {
@@ -165,12 +172,14 @@ export default {
 
 			// let imageUrl = document.getElementById('newPhoto').files;
 			const token = localStorage.getItem('usertoken');
-			const userId = parseInt(localStorage.getItem('userId'));
+			const userId = parseInt(localStorage.getItem('userid'));
+			console.log(userId);
 
 			let fd = new FormData();
 			fd.append('userId', userId);
 			fd.append('message', this.message);
 			fd.append('image', this.selectedFile);
+			fd.append('fk_message_users', userId);
 
 			// const userId = id ;
 			axios
