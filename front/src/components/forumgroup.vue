@@ -57,7 +57,6 @@
 					<div class="message_barre"></div>
 
 					<div class="coeur">
-						-->
 						<h1>Commentaires</h1>
 						<div class="comment_all">
 							<div class="comments">
@@ -137,13 +136,13 @@ export default {
 		},
 		deleteMessage() {
 			const token = localStorage.getItem('usertoken');
-			const userId = parseInt(localStorage.getItem('userId'));
-
-			let fd = new FormData();
-			fd.append('userId', userId);
+			// const userId = parseInt(localStorage.getItem('userid'));
+			// let fd = new FormData();
+			// fd.append('userId', userId);
+			const userId = localStorage.getItem('userid');
 
 			axios
-				.delete('http://localhost:3000/api/messages/', fd, {
+				.delete('http://localhost:3000/api/messages/'+ userId, {
 					headers: {
 						'Content-Type': 'multipart/form-data',
 						Authorization: `Bearer ${token}`,
@@ -152,6 +151,7 @@ export default {
 				.then((res) => {
 					console.log(res);
 					alert('Le message est supprimé');
+					document.location.reload();
 					this.$router.push('http://localhost:8080/forum');
 				})
 				.catch(() => {
@@ -366,7 +366,6 @@ button {
 	display: inline-block;
 	padding: 8px;
 	color: white;
-	background-color: #000;
 	text-align: center;
 	cursor: pointer;
 	width: 100%;

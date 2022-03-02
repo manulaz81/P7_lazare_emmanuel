@@ -27,33 +27,25 @@
 
 		<form id="registerProfil" method="post">
 			<div class="changement">
-				<!-- <p class="modifProfil"><label for="email">Votre nouvel Email</label></p>
-				<p class="modifProfil2"><input id="newEmail" type="email" name="email" placeholder="votre email" /></p> -->
+				<p class="modifProfil"><label for="email">Votre nouvel Email</label></p>
+				<p class="modifProfil2"><input id="newEmail" type="email" name="email" placeholder="votre email" /></p>
 
-				<p class="modifProfil"><label for="pseudo">Votre nouveau pseudo</label></p>
+				<p class="modifProfil"><label for="pseudo" type="text" >Votre nouveau pseudo</label></p>
 				<p class="modifProfil2"><input id="newPseudo" type="text" name="email" placeholder="votre nouveau pseudo" /></p>
 
-				<p class="modifProfil"><label for="name">Votre nouvelle bio</label></p>
+				<p class="modifProfil"><label for="name" type="text" >Votre nouvelle bio</label></p>
 				<p class="modifProfil2"><input id="newBio" type="text" name="name" placeholder="votre bio" /></p>
 
-				<p class="modifProfil"><label for="password2">Votre nouveau mot de passe</label></p>
+				<p class="modifProfil"><label for="password2" type="text" >Votre nouveau mot de passe</label></p>
 				<p class="modifProfil2">
-					<input id="newPassword2" type="password" name="email" placeholder="votre nouveau mot de passe" />
+					<input id="newPassword2" type="password" name="email"  />
 				</p>
-
-				<!-- <p class="modifProfil"><label for="password">Confirmez votre nouveau mot de passe</label></p>
-				<p class="modifProfil2">
-					<input id="newPassword" type="password" name="email" placeholder="votre nouveau mot de passe" />
-				</p> -->
-
-				<!-- <p class="modifProfil"><label for="password">Votre nouvelle photo de profil</label></p>
-				<p class="modifProfil2"><input id="newPhoto" type="file" name="email" /></p> -->
+	
 			</div>
 
 			<!-- <div class="validation"> -->
 			<button id="button_valid" v-on:click="updatePost">Valider vos données</button>
-
-			<!-- </div> -->
+			
 		</form>
 		<button id="button__suppressioncompte" v-on:click="deleteCompte">Supprimer votre compte</button>
 	</div>
@@ -173,6 +165,7 @@ export default {
 <style lang="scss">
 /******************************************************body ***************************************/
 #button__suppressioncompte {
+	margin-top: 20px;
 	margin-bottom: 50px;
 	width: 200px;
 	height: 70px;
@@ -189,6 +182,7 @@ export default {
 	margin-right: 20px;
 	width: 180px;
 	border-radius: 15px;
+	margin :  auto;
 }
 .changement {
 	width: 50%;
@@ -257,7 +251,7 @@ button {
 	outline: 0;
 	display: inline-block;
 	padding: 8px;
-	color: white;
+	color: black;
 	background-color: pink;
 	text-align: center;
 	cursor: pointer;

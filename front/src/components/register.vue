@@ -8,6 +8,8 @@
 		<p><label for="email">Email</label></p>
 		<p><input id="email" type="email" name="email" placeholder="votre email" v-model="email" required /></p>
 		<span v-if="!email">Email non valide !</span>
+		<p><label for="name">Pseudo</label></p>
+		<p><input id="name" type="text" name="name" placeholder="votre nom d'utilisateur" v-model="username" required /></p>
 
 		<p><label for="password">Password</label></p>
 		<p>
@@ -15,8 +17,6 @@
 		</p>
 		<span v-if="!password">password non valide !</span>
 
-		<p><label for="name">Pseudo</label></p>
-		<p><input id="name" type="text" name="name" placeholder="votre nom d'utilisateur" v-model="username" required /></p>
 
 		<button  id="button_inscrit">S'inscrire</button>
 	</form>	

@@ -43,11 +43,8 @@ exports.oneCommentaire = (req, res, next) => {
 };
 
 //route pour modifier un commentaire
-
 exports.modifyCommentaires = (req, res, next) => {
 	const id = req.params.fk_commentaire_messages;
-	console.log(id);
-
 	const modification = req.file
 		? {
 				comments: req.body.comments,

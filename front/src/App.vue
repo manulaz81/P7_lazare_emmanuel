@@ -32,7 +32,10 @@
 	min-width: 370px;
 };
 @media screen and (min-width: 768px) and (max-width: 1024px){
+body {
 
+	max-width: 800px;
+}
 
 }
 

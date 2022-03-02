@@ -19,7 +19,6 @@ exports.postMessage = (req, res, next) => {
 		// created: req.body.created,
 		// fk_message_users: req.body.fk_message_users,
 		// 	message: req.body.message,
-
 		// 	imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
 		// })
 		.then((article) => {
